@@ -39,7 +39,6 @@
 
         .activity-details.open {
             max-height: 2000px;
-            /* Increased for map image */
             opacity: 1;
         }
 
@@ -57,19 +56,19 @@
             background: linear-gradient(135deg, #1e3a8a 0%, #64748b 50%, #cbd5e1 100%);
         }
 
+        .hero-gradient-minimal {
+            background: linear-gradient(135deg, #27272a 0%, #52525b 50%, #a1a1aa 100%);
+        }
+
         .plan-btn.active {
             background-color: white;
             color: #1e40af;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        /* Badge for plan type */
-        .plan-badge-a {
-            @apply bg-blue-100 text-blue-700 border-blue-200;
-        }
-
-        .plan-badge-b {
-            @apply bg-slate-100 text-slate-700 border-slate-200;
+        .nav-btn.active {
+            color: #2563eb;
+            /* text-blue-600 */
         }
     </style>
 </head>
@@ -93,7 +92,6 @@
             <div class="mt-6 bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/10">
                 <div class="text-xs uppercase tracking-wide opacity-75 mb-1">距離 8/30 賽事日</div>
                 <div class="flex justify-between text-center font-mono" id="countdown">
-                    <!-- JS will populate this -->
                     <div class="animate-pulse">計算中...</div>
                 </div>
             </div>
@@ -102,14 +100,18 @@
 
     <!-- Plan Switcher -->
     <div class="max-w-2xl mx-auto px-4 -mt-6 relative z-20">
-        <div class="bg-gray-200/80 backdrop-blur rounded-full p-1 flex shadow-inner">
+        <div class="bg-gray-200/80 backdrop-blur rounded-full p-1 flex shadow-inner gap-1">
             <button onclick="switchPlan('reef')" id="btn-plan-reef"
-                class="plan-btn active flex-1 py-2 rounded-full text-sm font-bold text-gray-500 transition-all duration-300 flex items-center justify-center gap-2">
-                <i class="fa-solid fa-water"></i> 方案 A: 大堡礁
+                class="plan-btn active flex-1 py-2 rounded-full text-xs font-bold text-gray-500 transition-all duration-300 flex items-center justify-center gap-1">
+                <i class="fa-solid fa-water"></i> A: 大堡礁
             </button>
             <button onclick="switchPlan('snow')" id="btn-plan-snow"
-                class="plan-btn flex-1 py-2 rounded-full text-sm font-bold text-gray-500 transition-all duration-300 flex items-center justify-center gap-2">
-                <i class="fa-solid fa-snowflake"></i> 方案 B: 雪山
+                class="plan-btn flex-1 py-2 rounded-full text-xs font-bold text-gray-500 transition-all duration-300 flex items-center justify-center gap-1">
+                <i class="fa-solid fa-snowflake"></i> B: 雪山
+            </button>
+            <button onclick="switchPlan('minimal')" id="btn-plan-minimal"
+                class="plan-btn flex-1 py-2 rounded-full text-xs font-bold text-gray-500 transition-all duration-300 flex items-center justify-center gap-1">
+                <i class="fa-solid fa-bolt"></i> C: 極簡
             </button>
         </div>
     </div>
@@ -134,27 +136,50 @@
                 <i class="fa-solid fa-clipboard-check text-xl mb-1"></i>
                 <span class="text-[10px] font-medium">清單</span>
             </button>
+            <button onclick="switchTab('budget')"
+                class="nav-btn flex-1 flex flex-col items-center justify-center text-gray-400 hover:text-blue-500 transition-colors"
+                id="btn-budget">
+                <i class="fa-solid fa-sack-dollar text-xl mb-1"></i>
+                <span class="text-[10px] font-medium">航班與預算</span>
+            </button>
         </div>
     </nav>
 
-    <!-- Hidden File Input for Image Upload -->
-    <input type="file" id="imageInput" accept="image/*" class="hidden">
-
     <script>
         // --- DATA ---
-        // Common Days (8/28 - 8/30)
-        const commonItinerary = [
+        // Common 8/30 Marathon Day (Shared across all plans)
+        const marathonDay = {
+            date: "8/30 (日)",
+            title: "🏆 雪梨馬拉松",
+            location: "Sydney",
+            icon: "fa-medal",
+            color: "yellow",
+            highlight: true,
+            image: "https://static.wixstatic.com/media/cbc827_b4bdd14f0e7844f39c6fea368d57a818f000.jpg/v1/fill/w_1920,h_760,al_c,q_85,usm_0.33_1.00_0.00,enc_avif,quality_auto/cbc827_b4bdd14f0e7844f39c6fea368d57a818f000.jpg",
+            mapImage: "https://static.wixstatic.com/media/cbc827_1a01b0a040d34e58b68c67b5428a297d~mv2.png/v1/fill/w_963,h_789,fp_0.50_0.31,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/2592-A%20SM_Maps_2025-STATIC_SM%5B3%5D.png",
+            desc: "Race Day! 享受跨海大橋與歌劇院終點線。",
+            hotel: { name: "Amora Hotel Jamison Sydney (待定)", price: "約 TWD 6,000/晚" },
+            activities: [
+                { time: "05:30", text: "起跑點集合", type: "transport", query: "Bradfield Park North Sydney", cost: "交通費約 TWD 110" },
+                { time: "07:00", text: "START! (全馬起跑)", type: "run", query: "Sydney Harbour Bridge", cost: "報名費 (已付)" },
+                { time: "12:00", text: "終點：歌劇院前廣場", type: "finish", query: "Sydney Opera House", cost: "無價" },
+                { time: "18:00", text: "慶功宴 (和牛/海鮮)", type: "food", query: "Steakhouse Sydney Rocks", cost: "約 TWD 2,200" }
+            ]
+        };
+
+        // Common Pre-race Days (8/28 - 8/29) for Plan A & B
+        const commonPreRace = [
             {
                 date: "8/28 (五)",
                 title: "出發雪梨",
                 location: "Sydney",
                 icon: "fa-plane-arrival",
                 color: "blue",
-                image: "https://member.etsgo.com.tw/eWeb_joyeetour/IMGDB/000001/00004917.JPG",
+                image: "https://www.bring-you.info/imgs/2019/12/sydney-26.jpg",
                 desc: "調整時差，輕量觀光，避免過度步行。",
                 hotel: { name: "Amora Hotel Jamison Sydney (待定)", price: "約 TWD 6,000/晚" },
                 activities: [
-                    { time: "AM", text: "抵達雪梨機場 (SYD)", type: "transport", query: "Sydney Kingsford Smith Airport", cost: "機票約 TWD 35,000" },
+                    { time: "AM", text: "抵達雪梨機場 (SYD)", type: "transport", query: "Sydney Kingsford Smith Airport", cost: "已含在機票" },
                     { time: "14:00", text: "塔龍加動物園 (門票+纜車)", type: "must", query: "Taronga Zoo Sydney", note: "建議：搭渡輪+纜車，只走下坡", cost: "約 TWD 1,100" },
                     { time: "18:00", text: "環形碼頭看夕陽", type: "leisure", query: "Circular Quay", cost: "免費" },
                     { time: "19:00", text: "岩石區晚餐", type: "food", query: "The Rocks Sydney", cost: "約 TWD 900" }
@@ -175,24 +200,6 @@
                     { time: "16:00", text: "海德公園 (簡單拉伸)", type: "leisure", query: "Hyde Park Sydney", cost: "免費" },
                     { time: "18:00", text: "碳水大餐 (義大利麵/飯)", type: "food", query: "Italian Restaurant Sydney CBD", cost: "約 TWD 800" }
                 ]
-            },
-            {
-                date: "8/30 (日)",
-                title: "🏆 雪梨馬拉松",
-                location: "Sydney",
-                icon: "fa-medal",
-                color: "yellow",
-                highlight: true,
-                image: "https://static.wixstatic.com/media/cbc827_b4bdd14f0e7844f39c6fea368d57a818f000.jpg/v1/fill/w_1920,h_760,al_c,q_85,usm_0.33_1.00_0.00,enc_avif,quality_auto/cbc827_b4bdd14f0e7844f39c6fea368d57a818f000.jpg",
-                mapImage: "https://static.wixstatic.com/media/cbc827_1a01b0a040d34e58b68c67b5428a297d~mv2.png/v1/fill/w_963,h_789,fp_0.50_0.31,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/2592-A%20SM_Maps_2025-STATIC_SM%5B3%5D.png",
-                desc: "Race Day! 享受跨海大橋與歌劇院終點線。",
-                hotel: { name: "Amora Hotel Jamison Sydney (待定)", price: "約 TWD 6,000/晚" },
-                activities: [
-                    { time: "05:30", text: "起跑點集合", type: "transport", query: "Bradfield Park North Sydney", cost: "交通費約 TWD 110" },
-                    { time: "07:00", text: "START! (全馬起跑)", type: "run", query: "Sydney Harbour Bridge", cost: "報名費 (已付)" },
-                    { time: "12:00", text: "終點：歌劇院前廣場", type: "finish", query: "Sydney Opera House", cost: "無價" },
-                    { time: "18:00", text: "慶功宴 (和牛/海鮮)", type: "food", query: "Steakhouse Sydney Rocks", cost: "約 TWD 2,200" }
-                ]
             }
         ];
 
@@ -209,9 +216,9 @@
                 hotel: { name: "Airlie Beach 海景公寓 (待定)", price: "約 TWD 4,500/晚" },
                 activities: [
                     { time: "AM", text: "飛往 PPP 機場 (國內線)", type: "transport", query: "Whitsunday Coast Airport", cost: "機票約 TWD 4,500" },
-                    { time: "13:00", text: "機場取車 (租車3天)", type: "transport", query: "Avis Car Rental Proserpine", note: "右駕請小心，往 Airlie Beach 約 30分", cost: "約 TWD 2,200/天" },
+                    { time: "13:00", text: "機場取車 (租車3天)", type: "transport", query: "Avis Car Rental Proserpine", note: "右駕請小心", cost: "約 TWD 2,200/天" },
                     { time: "15:00", text: "入住 & 超市採買", type: "stay", query: "Airlie Beach Woolworths", cost: "雜支約 TWD 1,100" },
-                    { time: "16:30", text: "Lagoon 人工潟湖泡水", type: "relax", query: "Airlie Beach Lagoon", note: "跑後排乳酸聖地", cost: "免費" }
+                    { time: "16:30", text: "Lagoon 人工潟湖泡水", type: "relax", query: "Airlie Beach Lagoon", note: "跑後排乳酸", cost: "免費" }
                 ]
             },
             {
@@ -224,8 +231,7 @@
                 desc: "從空中俯瞰大堡礁。",
                 hotel: { name: "Airlie Beach 海景公寓 (待定)", price: "約 TWD 4,500/晚" },
                 activities: [
-                    { time: "TBD", text: "Scenic Flight (飛機觀光)", type: "must", query: "Whitsunday Airport Shute Harbour", note: "請再次確認起飛航廈", cost: "約 TWD 6,000" },
-                    { time: "PM", text: "Shute Harbour 觀景", type: "leisure", query: "Shute Harbour Marine Terminal", cost: "免費" },
+                    { time: "TBD", text: "Scenic Flight (飛機觀光)", type: "must", query: "Whitsunday Airport Shute Harbour", cost: "約 TWD 6,000" },
                     { time: "18:00", text: "海濱晚餐", type: "food", query: "Sorrento Restaurant and Bar Airlie Beach", cost: "約 TWD 1,300" }
                 ]
             },
@@ -240,8 +246,7 @@
                 hotel: { name: "Airlie Beach 海景公寓 (待定)", price: "約 TWD 4,500/晚" },
                 activities: [
                     { time: "08:00", text: "碼頭報到 (一日遊船)", type: "transport", query: "Port of Airlie", cost: "船票約 TWD 6,200" },
-                    { time: "10:30", text: "抵達 Reefworld 平台", type: "play", query: "Hardy Reef", cost: "包含在船票" },
-                    { time: "11:00", text: "浮潛 / 深潛 / 玻璃船", type: "play", query: "", note: "注意防曬，享受無重力漂浮", cost: "深潛另加 TWD 2,200" },
+                    { time: "11:00", text: "浮潛 / 深潛 / 玻璃船", type: "play", query: "", note: "享受無重力漂浮", cost: "深潛加 TWD 2,200" },
                     { time: "17:00", text: "返回碼頭 & 晚餐", type: "transport", query: "Port of Airlie", cost: "約 TWD 1,100" }
                 ]
             },
@@ -255,14 +260,13 @@
                 desc: "再見澳洲！回家。",
                 hotel: { name: "無", price: "-" },
                 activities: [
-                    { time: "AM", text: "早午餐", type: "food", query: "The Chambers Cairns", cost: "約 TWD 700" },
-                    { time: "10:00", text: "凱恩斯 (CNS)", type: "transport", query: "凱恩斯 (CNS)", cost: "油錢約 TWD 700" },
+                    { time: "10:00", text: "凱恩斯 (CNS)", type: "transport", query: "凱恩斯 (CNS)", cost: "-" },
                     { time: "PM", text: "飛往轉機點/回國", type: "transport", query: "", cost: "包含在來回機票" }
                 ]
             }
         ];
 
-        // Plan B: Snow Days (Updated with Skiing Backup)
+        // Plan B: Snow Days
         const snowItineraryPart = [
             {
                 date: "8/31 (一)",
@@ -276,24 +280,22 @@
                 activities: [
                     { time: "09:00", text: "雪梨市區取車", type: "transport", query: "Car Rental Sydney CBD", cost: "租車約 TWD 2,500/天" },
                     { time: "10:00", text: "出發前往 Jindabyne", type: "transport", query: "Jindabyne NSW", note: "車程約 5.5-6 小時", cost: "油錢約 TWD 1,500" },
-                    { time: "13:00", text: "中途休息 (Goulburn/Canberra)", type: "food", query: "Goulburn Bakery", cost: "約 TWD 400" },
-                    { time: "16:30", text: "Jindabyne 湖畔伸展", type: "relax", query: "Lake Jindabyne", note: "補齊登山/滑雪用品", cost: "免費" }
+                    { time: "16:30", text: "Jindabyne 湖畔伸展", type: "relax", query: "Lake Jindabyne", note: "補齊裝備", cost: "免費" }
                 ]
             },
             {
                 date: "9/1 (二)",
                 title: "🏔️ 攻頂日 (滑雪備案)",
-                location: "Mt Kosciuszko / Thredbo",
+                location: "Mt Kosciuszko",
                 icon: "fa-person-skiing",
                 color: "slate",
                 image: "https://images.unsplash.com/photo-1624672666249-144a9582d909?auto=format&fit=crop&w=800&q=80",
-                desc: "首選登頂澳洲最高峰。若天氣不佳(強風/大雪)，轉為滑雪體驗。",
+                desc: "首選登頂澳洲最高峰。若天氣不佳，轉為滑雪體驗。",
                 hotel: { name: "Jindabyne Motel (續住)", price: "約 TWD 4,000/晚" },
                 activities: [
-                    { time: "08:30", text: "前往 Thredbo", type: "transport", query: "Thredbo Alpine Village", note: "車程 45 分", cost: "國家公園通行證 AUD 29" },
-                    { time: "09:30", text: "方案A: 搭纜車登頂 (Summit Walk)", type: "run", query: "Mount Kosciuszko Summit Walk", note: "天氣好必去！來回 13km", cost: "纜車約 TWD 1,300" },
-                    { time: "09:30", text: "方案B: 新手滑雪 (Friday Flat)", type: "play", query: "Thredbo Friday Flat", note: "天氣差備案，租裝備體驗", cost: "約 TWD 4,500 (含票/租/課)" },
-                    { time: "15:00", text: "下山慶祝", type: "food", query: "Thredbo Village Cafe", cost: "約 TWD 600" }
+                    { time: "08:30", text: "前往 Thredbo", type: "transport", query: "Thredbo Alpine Village", cost: "通行證 AUD 29" },
+                    { time: "09:30", text: "方案A: 搭纜車登頂", type: "run", query: "Mount Kosciuszko Summit Walk", note: "天氣好必去！", cost: "纜車約 TWD 1,300" },
+                    { time: "09:30", text: "方案B: 新手滑雪", type: "play", query: "Thredbo Friday Flat", note: "天氣差備案", cost: "約 TWD 4,500" }
                 ]
             },
             {
@@ -303,12 +305,11 @@
                 icon: "fa-snowflake",
                 color: "slate",
                 image: "https://images.unsplash.com/photo-1518092892625-b4618a36d22c?auto=format&fit=crop&w=800&q=80",
-                desc: "若昨日已登頂，今日享受滑雪樂趣；若昨日失敗，今日補考。",
+                desc: "若昨日已登頂，今日滑雪；若昨日失敗，今日補考。",
                 hotel: { name: "Jindabyne Motel (續住)", price: "約 TWD 4,000/晚" },
                 activities: [
-                    { time: "AM", text: "選項1: 輕鬆滑雪 (Skiing)", type: "play", query: "Thredbo Alpine Village", note: "昨日已登頂，今日玩雪", cost: "約 TWD 3,500" },
-                    { time: "AM", text: "選項2: 補登頂 (Reschedule)", type: "must", query: "Mount Kosciuszko", note: "把握最後機會", cost: "纜車約 TWD 1,300" },
-                    { time: "PM", text: "Dead Horse Gap / 湖邊放空", type: "relax", query: "Lake Jindabyne", note: "讓雙腿休息", cost: "免費" }
+                    { time: "AM", text: "選項1: 輕鬆滑雪", type: "play", query: "Thredbo Alpine Village", note: "昨日已登頂", cost: "約 TWD 3,500" },
+                    { time: "AM", text: "選項2: 補登頂", type: "must", query: "Mount Kosciuszko", note: "最後機會", cost: "纜車約 TWD 1,300" }
                 ]
             },
             {
@@ -319,19 +320,124 @@
                 color: "gray",
                 image: "https://images.unsplash.com/photo-1506973035872-a4706358413b?auto=format&fit=crop&w=800&q=80",
                 desc: "開車回程，準備搭機。",
-                hotel: { name: "機場附近飯店 (視班機)", price: "-" },
+                hotel: { name: "機場附近飯店", price: "-" },
                 activities: [
                     { time: "09:00", text: "退房出發", type: "transport", query: "Jindabyne", cost: "-" },
-                    { time: "15:00", text: "抵達雪梨機場/市區還車", type: "transport", query: "Sydney Airport", cost: "油錢約 TWD 1,500" },
-                    { time: "PM", text: "準備搭機/休息", type: "stay", query: "", cost: "-" }
+                    { time: "15:00", text: "抵達雪梨機場/市區還車", type: "transport", query: "Sydney Airport", cost: "油錢約 TWD 1,500" }
                 ]
+            }
+        ];
+
+        // Plan C: Minimalist (8/26 - 9/1)
+        const minimalistItinerary = [
+            {
+                date: "8/26 (三)",
+                title: "出發飛往雪梨",
+                location: "Flight",
+                icon: "fa-plane-departure",
+                color: "gray",
+                image: "https://images.unsplash.com/photo-1436491865332-7a6153212e7e?auto=format&fit=crop&w=800&q=80",
+                desc: "搭乘國泰航空前往雪梨，展開極簡跑馬之旅。",
+                hotel: { name: "機上", price: "-" },
+                activities: []
+            },
+            {
+                date: "8/27 (四)",
+                title: "抵達雪梨",
+                location: "Sydney",
+                icon: "fa-plane-arrival",
+                color: "gray",
+                image: "https://www.bring-you.info/imgs/2019/12/sydney-26.jpg",
+                desc: "清晨抵達，飯店寄放行李後，市區輕鬆漫步。",
+                hotel: { name: "Amora Hotel Jamison Sydney (待定)", price: "約 TWD 6,000/晚" },
+                activities: []
+            },
+            {
+                date: "8/28 (五)",
+                title: "賽前適應",
+                location: "Sydney",
+                icon: "fa-city",
+                color: "gray",
+                image: "https://images.unsplash.com/photo-1506973035872-a4706358413b?auto=format&fit=crop&w=800&q=80",
+                desc: "適應氣候，維持體能，早早休息。",
+                hotel: { name: "Amora Hotel Jamison Sydney (待定)", price: "約 TWD 6,000/晚" },
+                activities: []
+            },
+            {
+                date: "8/29 (六)",
+                title: "領取物資",
+                location: "Sydney",
+                icon: "fa-person-walking",
+                color: "gray",
+                image: "https://ppt.cc/fB0BOx@.jpg",
+                desc: "前往 Expo 領取賽事物資，多讓雙腳休息。",
+                hotel: { name: "Amora Hotel Jamison Sydney (待定)", price: "約 TWD 6,000/晚" },
+                activities: []
+            },
+            marathonDay, // 8/30 共同的馬拉松行程
+            {
+                date: "8/31 (一)",
+                title: "賽後恢復",
+                location: "Sydney",
+                icon: "fa-bed",
+                color: "gray",
+                image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+                desc: "睡到自然醒，安排按摩或簡單散步排乳酸。",
+                hotel: { name: "Amora Hotel Jamison Sydney (待定)", price: "約 TWD 6,000/晚" },
+                activities: []
+            },
+            {
+                date: "9/1 (二)",
+                title: "搭機回國",
+                location: "Flight",
+                icon: "fa-plane",
+                color: "gray",
+                image: "https://images.unsplash.com/photo-1556388158-158ea5ccacbd?auto=format&fit=crop&w=800&q=80",
+                desc: "前往機場，滿載完賽榮譽返回台灣。",
+                hotel: { name: "溫暖的家", price: "-" },
+                activities: []
             }
         ];
 
         // Combine logic
         const plans = {
-            reef: [...commonItinerary, ...reefItineraryPart],
-            snow: [...commonItinerary, ...snowItineraryPart]
+            reef: [...commonPreRace, marathonDay, ...reefItineraryPart],
+            snow: [...commonPreRace, marathonDay, ...snowItineraryPart],
+            minimal: minimalistItinerary
+        };
+
+        // Budget Data
+        const budgets = {
+            reef: {
+                total: 86884,
+                items: [
+                    { name: "機票 (台北-雪梨)", cost: 23184, note: "國泰航空不選位" },
+                    { name: "國內機票 (雪梨-PPP)", cost: 4500, note: "預估" },
+                    { name: "住宿 (6晚)", cost: 31500, note: "雪梨3晚+大堡礁3晚" },
+                    { name: "當地交通/租車", cost: 8500, note: "機場接駁+Airlie租車" },
+                    { name: "行程 (直升機+出海)", cost: 12200, note: "心型礁飛行+大堡礁一日遊" },
+                    { name: "餐飲與雜支", cost: 7000, note: "超市自理+部分外食" }
+                ]
+            },
+            snow: {
+                total: 80184,
+                items: [
+                    { name: "機票 (台北-雪梨)", cost: 23184, note: "國泰航空不選位" },
+                    { name: "住宿 (6晚)", cost: 30000, note: "雪梨3晚+雪山3晚" },
+                    { name: "租車與油資 (4天)", cost: 14000, note: "含雪梨來回油資" },
+                    { name: "行程 (滑雪/纜車)", cost: 6000, note: "視天氣決定項目" },
+                    { name: "餐飲與雜支", cost: 7000, note: "超市自理+部分外食" }
+                ]
+            },
+            minimal: {
+                total: 62184,
+                items: [
+                    { name: "機票 (台北-雪梨)", cost: 23184, note: "國泰航空不選位" },
+                    { name: "住宿 (5晚)", cost: 30000, note: "雪梨市區飯店 (8/27-9/1)" },
+                    { name: "當地交通", cost: 2000, note: "機場地鐵與市區大眾運輸" },
+                    { name: "餐飲與雜支", cost: 7000, note: "日常飲食與慶功宴" }
+                ]
+            }
         };
 
         // State
@@ -341,20 +447,23 @@
         const checklistReef = [
             { cat: "文件", items: ["護照 (效期6個月以上)", "澳洲 ETA 簽證", "國際駕照 (自駕必備)", "馬拉松報名確認信", "心型礁行程預訂單"] },
             { cat: "跑步裝備", items: ["比賽跑鞋 (已馴鞋)", "號碼布扣/腰帶", "能量膠 (Gels)", "鹽錠", "凡士林 (防磨擦)", "墨鏡/遮陽帽"] },
-            { cat: "大堡礁專用", items: ["海洋友善防曬乳", "泳衣/水母衣", "防水相機 (GoPro)", "暈船藥", "沙灘拖鞋"] },
-            { cat: "電子/其他", items: ["萬用轉接頭 (八字型)", "行動電源", "澳幣現金 (少量)", "信用卡 (海外回饋高)"] }
+            { cat: "大堡礁專用", items: ["海洋友善防曬乳", "泳衣/水母衣", "防水相機 (GoPro)", "暈船藥", "沙灘拖鞋"] }
         ];
 
         const checklistSnow = [
-            { cat: "文件", items: ["護照 (效期6個月以上)", "澳洲 ETA 簽證", "國際駕照 (自駕必備)", "馬拉松報名確認信", "國家公園通行證 (可現場買)"] },
+            { cat: "文件", items: ["護照 (效期6個月以上)", "澳洲 ETA 簽證", "國際駕照 (自駕必備)", "馬拉松報名確認信", "國家公園通行證"] },
             { cat: "跑步裝備", items: ["比賽跑鞋 (已馴鞋)", "號碼布扣/腰帶", "能量膠 (Gels)", "鹽錠", "凡士林 (防磨擦)", "墨鏡/遮陽帽"] },
-            { cat: "雪山/滑雪裝備", items: ["防風外套/Gore-Tex (必備)", "保暖中層 (Fleece)", "毛帽 & 手套 (必備)", "滑雪襪 (長筒)", "滑雪鏡 (Goggles/可租)", "登山鞋/越野跑鞋"] },
-            { cat: "電子/其他", items: ["萬用轉接頭 (八字型)", "行動電源", "澳幣現金 (少量)", "信用卡 (海外回饋高)"] }
+            { cat: "雪山裝備", items: ["防風外套/Gore-Tex", "保暖中層", "毛帽 & 手套", "滑雪襪", "登山鞋"] }
+        ];
+
+        const checklistMinimal = [
+            { cat: "文件", items: ["護照 (效期6個月以上)", "澳洲 ETA 簽證", "馬拉松報名確認信", "住宿訂單"] },
+            { cat: "跑步裝備", items: ["比賽跑鞋 (已馴鞋)", "備用跑鞋 (賽後穿)", "跑衣/跑褲 (2套)", "號碼布扣/腰帶", "能量膠 (Gels)", "鹽錠", "凡士林 (防磨擦)", "墨鏡/遮陽帽"] },
+            { cat: "日常與電子", items: ["輕便保暖外套", "萬用轉接頭 (八字型)", "行動電源", "信用卡 (海外回饋高)"] }
         ];
 
         // --- RENDER FUNCTIONS ---
 
-        // 1. Countdown Logic
         function updateCountdown() {
             const raceDate = new Date("2026-08-30T07:00:00+10:00").getTime();
             const now = new Date().getTime();
@@ -373,7 +482,6 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // 2. Render Itinerary
         function renderItinerary() {
             const container = document.getElementById('app-container');
             const data = plans[currentPlan];
@@ -381,19 +489,8 @@
             let html = '<div class="space-y-4 pb-8 animate-fade-in">';
 
             data.forEach((day, index) => {
-                const isSydney = day.location === "Sydney";
-                const isSnow = currentPlan === 'snow' && index > 2;
-
-                // Color logic
-                let badgeColor = "bg-blue-100 text-blue-800";
-                if (day.location === "Return") badgeColor = "bg-gray-100 text-gray-600";
-                else if (currentPlan === 'reef' && !isSydney) badgeColor = "bg-teal-100 text-teal-800";
-                else if (currentPlan === 'snow' && !isSydney) badgeColor = "bg-slate-100 text-slate-800";
-
                 const borderColor = day.highlight ? "border-l-4 border-yellow-400 ring-2 ring-yellow-400/20" : "";
-
-                // Hotel Map Link
-                const hotelMapLink = day.hotel && day.hotel.name !== "無"
+                const hotelMapLink = day.hotel && day.hotel.name !== "無" && day.hotel.name !== "機上" && day.hotel.name !== "溫暖的家"
                     ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(day.hotel.name)}`
                     : '#';
 
@@ -405,9 +502,6 @@
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                         
                         <div class="absolute top-3 right-3 flex gap-2">
-                            <!-- <button onclick="triggerUpload(event, ${index})" class="bg-black/30 backdrop-blur text-white p-2 rounded-full hover:bg-white/20 transition text-xs flex items-center gap-1 border border-white/20">
-                                    <i class="fa-solid fa-camera"></i> 更換
-                            --> </button>
                             <div class="bg-white/20 backdrop-blur text-white p-2 rounded-full">
                                 <i class="fa-solid ${day.icon}"></i>
                             </div>
@@ -434,7 +528,7 @@
                                 <div class="flex-1">
                                     <div class="flex justify-between items-start">
                                         <div class="text-xs text-gray-400 uppercase font-bold tracking-wider">住宿</div>
-                                        ${day.hotel.name !== "無" ? `
+                                        ${hotelMapLink !== '#' ? `
                                         <a href="${hotelMapLink}" target="_blank" class="text-blue-500 bg-blue-50 p-1 rounded-md hover:bg-blue-100 active:scale-95 transition">
                                             <i class="fa-solid fa-location-dot text-xs"></i>
                                         </a>` : ''}
@@ -452,25 +546,18 @@
                                 <div class="rounded-lg overflow-hidden border border-gray-200 shadow-sm">
                                     <img src="${day.mapImage}" class="w-full h-auto object-cover" alt="Course Map">
                                 </div>
-                                <a href="${day.mapImage}" target="_blank" class="block text-center text-xs text-blue-500 mt-1 hover:underline">點擊查看大圖</a>
                             </div>
                             ` : ''}
 
+                            <!-- Activities List -->
+                            ${day.activities && day.activities.length > 0 ? `
                             <div class="space-y-0 relative">
-                                <!-- Vertical Line -->
                                 <div class="absolute left-[18px] top-2 bottom-4 w-0.5 bg-gray-100"></div>
-
                                 ${day.activities.map(act => {
-                    let iconColor = "text-gray-400";
-                    if (act.type === 'must') iconColor = "text-red-500";
-                    if (act.type === 'transport') iconColor = "text-blue-400";
-                    if (act.type === 'run') iconColor = "text-yellow-500";
-
                     const mapLink = act.query ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(act.query)}` : '#';
-
                     return `
                                     <div class="flex gap-4 relative mb-4 last:mb-0">
-                                        <div class="flex-none w-10 text-right pt-1 text-xs font-mono text-gray-400 bg-white z-10">${act.time}</div>
+                                        <div class="flex-none w-10 text-right pt-1 text-xs font-mono text-gray-400 bg-white z-10">${act.time || '-'}</div>
                                         <div class="flex-1 pb-2">
                                             <div class="flex justify-between items-start">
                                                 <div class="font-medium text-gray-800 text-sm ${act.type === 'must' ? 'font-bold' : ''}">
@@ -478,7 +565,7 @@
                                                     ${act.text}
                                                 </div>
                                                 ${act.query ? `
-                                                <a href="${mapLink}" target="_blank" class="flex-none ml-2 text-blue-500 bg-blue-50 p-1.5 rounded-lg hover:bg-blue-100 active:scale-95 transition">
+                                                <a href="${mapLink}" target="_blank" class="flex-none ml-2 text-blue-500 bg-blue-50 p-1.5 rounded-lg hover:bg-blue-100 transition">
                                                     <i class="fa-solid fa-location-arrow text-xs"></i>
                                                 </a>` : ''}
                                             </div>
@@ -493,10 +580,14 @@
                                     `;
                 }).join('')}
                             </div>
+                            ` : `
+                            <div class="text-sm text-gray-400 text-center py-4 bg-gray-50 rounded-lg border border-dashed border-gray-200">
+                                無特殊預定行程，以飯店休息為主
+                            </div>
+                            `}
                         </div>
                     </div>
                     
-                    <!-- Expand Toggle (Visual Cue) -->
                     <div class="text-center py-2 border-t border-gray-50 bg-gray-50 cursor-pointer hover:bg-gray-100" onclick="toggleCard(${index})">
                         <i class="fa-solid fa-chevron-down text-gray-400 text-xs transition-transform duration-300" id="chevron-${index}"></i>
                     </div>
@@ -507,13 +598,14 @@
             container.innerHTML = html;
         }
 
-        // 3. Render Checklist
         function renderChecklist() {
             const container = document.getElementById('app-container');
-            const list = currentPlan === 'reef' ? checklistReef : checklistSnow;
+            const list = currentPlan === 'reef' ? checklistReef : (currentPlan === 'snow' ? checklistSnow : checklistMinimal);
+
+            let titleStr = currentPlan === 'reef' ? '大堡礁' : (currentPlan === 'snow' ? '雪山' : '極簡跑馬');
 
             let html = '<div class="space-y-6 pb-8 bg-white p-6 rounded-2xl shadow-sm animate-fade-in">';
-            html += `<h2 class="text-xl font-bold text-gray-800 mb-4">🎒 ${currentPlan === 'reef' ? '大堡礁' : '雪山'} 必備行囊清單</h2>`;
+            html += `<h2 class="text-xl font-bold text-gray-800 mb-4">🎒 ${titleStr} 必備行囊清單</h2>`;
 
             list.forEach((cat, idx) => {
                 html += `
@@ -536,55 +628,169 @@
             container.innerHTML = html;
         }
 
+        function renderBudget() {
+            const container = document.getElementById('app-container');
+            const data = budgets[currentPlan];
+            let planName = currentPlan === 'reef' ? '方案A (大堡礁)' : (currentPlan === 'snow' ? '方案B (雪山)' : '方案C (極簡跑馬)');
+
+            let html = `
+            <div class="space-y-6 pb-8 animate-fade-in">
+                
+                <!-- Flight Card -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border-t-4 border-green-700">
+                    <div class="flex items-center gap-2 mb-4">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/17/Cathay_Pacific_logo.svg/1200px-Cathay_Pacific_logo.svg.png" class="h-6 object-contain" alt="Cathay Pacific">
+                        <h2 class="text-lg font-bold text-gray-800">國泰航空 航班資訊</h2>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <!-- Outbound -->
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                            <div class="text-xs text-gray-500 font-bold mb-2 flex justify-between">
+                                <span><i class="fa-solid fa-plane-departure mr-1 text-blue-500"></i>去程 | 8/26 (三)</span>
+                                <span>總飛行 12h</span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm">
+                                <div class="text-center">
+                                    <div class="font-bold text-xl text-gray-800">16:10</div>
+                                    <div class="text-gray-500">TPE 桃園</div>
+                                </div>
+                                <div class="flex-1 px-4 text-center relative">
+                                    <div class="border-t-2 border-dashed border-gray-300 w-full absolute top-1/2 left-0 -z-10"></div>
+                                    <div class="bg-gray-50 px-2 inline-block text-xs text-orange-600 font-medium">香港轉機 55m</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="font-bold text-xl text-gray-800">06:10<span class="text-[10px] text-red-500 relative -top-2">+1</span></div>
+                                    <div class="text-gray-500">SYD 雪梨</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Inbound -->
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                            <div class="text-xs text-gray-500 font-bold mb-2 flex justify-between">
+                                <span><i class="fa-solid fa-plane-arrival mr-1 text-blue-500"></i>回程 | 9/1 (二)</span>
+                                <span>總飛行 13h 10m</span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm">
+                                <div class="text-center">
+                                    <div class="font-bold text-xl text-gray-800">10:10</div>
+                                    <div class="text-gray-500">SYD 雪梨</div>
+                                </div>
+                                <div class="flex-1 px-4 text-center relative">
+                                    <div class="border-t-2 border-dashed border-gray-300 w-full absolute top-1/2 left-0 -z-10"></div>
+                                    <div class="bg-gray-50 px-2 inline-block text-xs text-orange-600 font-medium">香港轉機 1h35m</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="font-bold text-xl text-gray-800">21:20</div>
+                                    <div class="text-gray-500">TPE 桃園</div>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-[10px] text-red-500 bg-red-50 px-2 py-1 rounded inline-block">
+                                <i class="fa-solid fa-circle-exclamation mr-1"></i>備註：9/1 無雪梨直飛台灣航班
+                            </div>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="flex gap-2 pt-2">
+                            <div class="flex-1 bg-blue-50 p-3 rounded-lg border border-blue-100 text-center">
+                                <div class="text-xs text-blue-600 mb-1">一般座位</div>
+                                <div class="font-bold text-gray-800">TWD $23,184</div>
+                            </div>
+                            <div class="flex-1 bg-amber-50 p-3 rounded-lg border border-amber-100 text-center">
+                                <div class="text-xs text-amber-700 mb-1">寬敞座位</div>
+                                <div class="font-bold text-gray-800">TWD $34,704</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Budget Card -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-5">
+                        <i class="fa-solid fa-file-invoice-dollar text-8xl"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <h2 class="text-lg font-bold text-gray-800 mb-1">預估花費明細</h2>
+                        <div class="text-sm text-gray-500 mb-5">目前選擇：${planName}</div>
+                        
+                        <div class="space-y-3 mb-6">
+                            ${data.items.map(item => `
+                            <div class="flex justify-between items-center border-b border-gray-50 pb-2">
+                                <div>
+                                    <div class="text-sm font-medium text-gray-700">${item.name}</div>
+                                    <div class="text-[10px] text-gray-400">${item.note}</div>
+                                </div>
+                                <div class="text-sm font-mono font-bold text-gray-800">
+                                    $${item.cost.toLocaleString()}
+                                </div>
+                            </div>
+                            `).join('')}
+                        </div>
+
+                        <div class="bg-gray-800 text-white p-4 rounded-xl flex justify-between items-center">
+                            <div class="text-sm opacity-80 uppercase tracking-widest">Total Estimated</div>
+                            <div class="text-2xl font-bold font-mono text-emerald-400">
+                                <span class="text-sm mr-1">TWD</span>$${data.total.toLocaleString()}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            `;
+            container.innerHTML = html;
+        }
+
         // --- INTERACTION FUNCTIONS ---
 
         function switchPlan(plan) {
             currentPlan = plan;
 
             // Update Toggle Buttons
-            document.getElementById('btn-plan-reef').classList.toggle('active', plan === 'reef');
-            document.getElementById('btn-plan-snow').classList.toggle('active', plan === 'snow');
+            document.querySelectorAll('.plan-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-plan-${plan}`).classList.add('active');
 
             // Update Header Theme
             const header = document.getElementById('hero-header');
             const subtitle = document.getElementById('trip-subtitle');
 
+            header.className = "text-white p-6 rounded-b-3xl shadow-lg relative overflow-hidden transition-colors duration-500";
+
             if (plan === 'snow') {
-                header.classList.remove('hero-gradient');
                 header.classList.add('hero-gradient-snow');
                 subtitle.innerText = "澳洲最高峰之旅";
+            } else if (plan === 'minimal') {
+                header.classList.add('hero-gradient-minimal');
+                subtitle.innerText = "極簡跑馬之旅";
             } else {
                 header.classList.add('hero-gradient');
-                header.classList.remove('hero-gradient-snow');
                 subtitle.innerText = "大堡礁之旅";
             }
 
-            // Re-render
-            if (currentTab === 'itinerary') {
-                renderItinerary();
-            } else {
-                renderChecklist();
-            }
+            // Re-render current tab
+            if (currentTab === 'itinerary') renderItinerary();
+            else if (currentTab === 'checklist') renderChecklist();
+            else if (currentTab === 'budget') renderBudget();
         }
 
         function switchTab(tab) {
             currentTab = tab;
+
             // Update buttons
             document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('text-blue-600', 'text-gray-400');
+                btn.classList.remove('active', 'text-blue-600', 'text-gray-400');
                 if (btn.id === `btn-${tab}`) {
-                    btn.classList.add('text-blue-600');
+                    btn.classList.add('active', 'text-blue-600');
                 } else {
                     btn.classList.add('text-gray-400');
                 }
             });
 
             // Render content
-            if (tab === 'itinerary') {
-                renderItinerary();
-            } else {
-                renderChecklist();
-            }
+            if (tab === 'itinerary') renderItinerary();
+            else if (currentTab === 'checklist') renderChecklist();
+            else if (currentTab === 'budget') renderBudget();
         }
 
         function toggleCard(index) {
@@ -605,13 +811,11 @@
             const text = el.querySelector('.check-text');
 
             if (box.classList.contains('bg-blue-500')) {
-                // Uncheck
                 box.classList.remove('bg-blue-500', 'border-blue-500');
                 box.classList.add('border-gray-300');
                 text.classList.remove('line-through', 'text-gray-400');
                 text.classList.add('text-gray-700');
             } else {
-                // Check
                 box.classList.remove('border-gray-300');
                 box.classList.add('bg-blue-500', 'border-blue-500');
                 text.classList.add('line-through', 'text-gray-400');
