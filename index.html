@@ -57,7 +57,7 @@
         }
 
         .hero-gradient-minimal {
-            background: linear-gradient(135deg, #27272a 0%, #52525b 50%, #a1a1aa 100%);
+            background: linear-gradient(135deg, #431407 0%, #9a3412 50%, #f59e0b 100%);
         }
 
         .plan-btn.active {
@@ -111,7 +111,7 @@
             </button>
             <button onclick="switchPlan('minimal')" id="btn-plan-minimal"
                 class="plan-btn flex-1 py-2 rounded-full text-xs font-bold text-gray-500 transition-all duration-300 flex items-center justify-center gap-1">
-                <i class="fa-solid fa-bolt"></i> C: 極簡
+                <i class="fa-solid fa-city"></i> C: 雪梨深度
             </button>
         </div>
     </div>
@@ -158,12 +158,12 @@
             image: "https://static.wixstatic.com/media/cbc827_b4bdd14f0e7844f39c6fea368d57a818f000.jpg/v1/fill/w_1920,h_760,al_c,q_85,usm_0.33_1.00_0.00,enc_avif,quality_auto/cbc827_b4bdd14f0e7844f39c6fea368d57a818f000.jpg",
             mapImage: "https://static.wixstatic.com/media/cbc827_1a01b0a040d34e58b68c67b5428a297d~mv2.png/v1/fill/w_963,h_789,fp_0.50_0.31,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/2592-A%20SM_Maps_2025-STATIC_SM%5B3%5D.png",
             desc: "Race Day! 享受跨海大橋與歌劇院終點線。",
-            hotel: { name: "Amora Hotel Jamison Sydney (待定)", price: "約 TWD 6,000/晚" },
+            hotel: { name: "庫吉金沙大飯店 (Coogee Sands Hotel)", price: "約 TWD 6,000/晚" },
             activities: [
-                { time: "05:30", text: "起跑點集合", type: "transport", query: "Bradfield Park North Sydney", cost: "交通費約 TWD 110" },
+                { time: "06:00", text: "馬拉松準備", type: "transport", query: "Sydney", cost: "交通費約 TWD 110" },
                 { time: "07:00", text: "START! (全馬起跑)", type: "run", query: "Sydney Harbour Bridge", cost: "報名費 (已付)" },
-                { time: "12:00", text: "終點：歌劇院前廣場", type: "finish", query: "Sydney Opera House", cost: "無價" },
-                { time: "18:00", text: "慶功宴 (和牛/海鮮)", type: "food", query: "Steakhouse Sydney Rocks", cost: "約 TWD 2,200" }
+                { time: "11:30", text: "完賽：歌劇院前廣場", type: "finish", query: "Sydney Opera House", cost: "無價" },
+                { time: "14:00", text: "慶功", type: "food", query: "The Glenmore Hotel", cost: "約 TWD 1,500" }
             ]
         };
 
@@ -177,7 +177,7 @@
                 color: "blue",
                 image: "https://www.bring-you.info/imgs/2019/12/sydney-26.jpg",
                 desc: "調整時差，輕量觀光，避免過度步行。",
-                hotel: { name: "Amora Hotel Jamison Sydney (待定)", price: "約 TWD 6,000/晚" },
+                hotel: { name: "庫吉金沙大飯店 (Coogee Sands Hotel)", price: "約 TWD 6,000/晚" },
                 activities: [
                     { time: "AM", text: "抵達雪梨機場 (SYD)", type: "transport", query: "Sydney Kingsford Smith Airport", cost: "已含在機票" },
                     { time: "14:00", text: "塔龍加動物園 (門票+纜車)", type: "must", query: "Taronga Zoo Sydney", note: "建議：搭渡輪+纜車，只走下坡", cost: "約 TWD 1,100" },
@@ -193,7 +193,7 @@
                 color: "blue",
                 image: "https://ppt.cc/fB0BOx@.jpg",
                 desc: "關鍵日：減少站立，領完物資就休息。",
-                hotel: { name: "Amora Hotel Jamison Sydney (待定)", price: "約 TWD 6,000/晚" },
+                hotel: { name: "庫吉金沙大飯店 (Coogee Sands Hotel)", price: "約 TWD 6,000/晚" },
                 activities: [
                     { time: "09:00", text: "領取號碼布 (Expo)", type: "must", query: "ICC Sydney", cost: "免費" },
                     { time: "12:00", text: "QVB 逛街購物 (早午餐)", type: "leisure", query: "Queen Victoria Building", note: "室內有冷氣椅子多", cost: "約 TWD 700" },
@@ -328,7 +328,7 @@
             }
         ];
 
-        // Plan C: Minimalist (8/26 - 9/1)
+        // Plan C: Sydney In-depth (8/26 - 9/1)
         const minimalistItinerary = [
             {
                 date: "8/26 (三)",
@@ -337,65 +337,101 @@
                 icon: "fa-plane-departure",
                 color: "gray",
                 image: "https://images.unsplash.com/photo-1436491865332-7a6153212e7e?auto=format&fit=crop&w=800&q=80",
-                desc: "搭乘國泰航空前往雪梨，展開極簡跑馬之旅。",
+                desc: "搭乘國泰航空前往雪梨，展開深度之旅。",
                 hotel: { name: "機上", price: "-" },
-                activities: []
+                activities: [
+                    { time: "16:10", text: "桃園出發", type: "transport", query: "TPE", cost: "機票" }
+                ]
             },
             {
                 date: "8/27 (四)",
-                title: "抵達雪梨",
-                location: "Sydney",
-                icon: "fa-plane-arrival",
+                title: "抵達 & 市區巡禮",
+                location: "Sydney CBD",
+                icon: "fa-city",
                 color: "gray",
                 image: "https://www.bring-you.info/imgs/2019/12/sydney-26.jpg",
-                desc: "清晨抵達，飯店寄放行李後，市區輕鬆漫步。",
-                hotel: { name: "Amora Hotel Jamison Sydney (待定)", price: "約 TWD 6,000/晚" },
-                activities: []
+                desc: "抵達雪梨，領取物資與經典地標踩點。",
+                hotel: { name: "庫吉金沙大飯店 (Coogee Sands Hotel)", price: "約 TWD 6,000/晚" },
+                activities: [
+                    { time: "06:10", text: "抵達雪梨", type: "transport", query: "Sydney Airport", cost: "-" },
+                    { time: "08:00", text: "飯店寄放行李", type: "stay", query: "Coogee Sands Hotel Sydney", cost: "-" },
+                    { time: "10:00", text: "領號碼布", type: "must", query: "Sydney Olympic Park", cost: "-" },
+                    { time: "12:00", text: "Expo 參觀", type: "leisure", query: "Sydney Marathon Expo", cost: "-" },
+                    { time: "15:00", text: "港灣散步", type: "leisure", query: "Circular Quay", cost: "-" },
+                    { time: "16:00", text: "歌劇院拍照", type: "must", query: "Sydney Opera House", cost: "-" },
+                    { time: "17:00", text: "皇家植物園", type: "leisure", query: "Royal Botanic Garden Sydney", cost: "-" },
+                    { time: "18:00", text: "最美視角", type: "must", query: "Mrs Macquarie's Chair", cost: "-" },
+                    { time: "19:00", text: "小酌", type: "food", query: "Opera Bar", cost: "依消費" }
+                ]
             },
             {
                 date: "8/28 (五)",
-                title: "賽前適應",
-                location: "Sydney",
-                icon: "fa-city",
+                title: "壯麗藍山",
+                location: "Blue Mountains",
+                icon: "fa-mountain",
                 color: "gray",
-                image: "https://images.unsplash.com/photo-1506973035872-a4706358413b?auto=format&fit=crop&w=800&q=80",
-                desc: "適應氣候，維持體能，早早休息。",
-                hotel: { name: "Amora Hotel Jamison Sydney (待定)", price: "約 TWD 6,000/晚" },
-                activities: []
+                image: "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=80",
+                desc: "遠離市區，探索大自然的鬼斧神工。",
+                hotel: { name: "庫吉金沙大飯店 (Coogee Sands Hotel)", price: "約 TWD 6,000/晚" },
+                activities: [
+                    { time: "07:30", text: "出發藍山", type: "transport", query: "Central Station Sydney", cost: "交通費" },
+                    { time: "10:00", text: "三姐妹岩", type: "must", query: "Three Sisters Blue Mountains", cost: "免費" },
+                    { time: "11:00", text: "景觀台", type: "leisure", query: "Echo Point Blue Mountains", cost: "-" },
+                    { time: "12:30", text: "纜車", type: "play", query: "Scenic World Blue Mountains", cost: "門票" },
+                    { time: "14:30", text: "小鎮散步", type: "leisure", query: "Leura NSW", cost: "-" },
+                    { time: "18:30", text: "回到雪梨", type: "transport", query: "Sydney", cost: "-" }
+                ]
             },
             {
                 date: "8/29 (六)",
-                title: "領取物資",
+                title: "動物園 & 賽前準備",
                 location: "Sydney",
-                icon: "fa-person-walking",
+                icon: "fa-hippo",
                 color: "gray",
                 image: "https://ppt.cc/fB0BOx@.jpg",
-                desc: "前往 Expo 領取賽事物資，多讓雙腳休息。",
-                hotel: { name: "Amora Hotel Jamison Sydney (待定)", price: "約 TWD 6,000/晚" },
-                activities: []
+                desc: "輕鬆觀光，保留體力迎接明日賽事。",
+                hotel: { name: "庫吉金沙大飯店 (Coogee Sands Hotel)", price: "約 TWD 6,000/晚" },
+                activities: [
+                    { time: "09:00", text: "搭船去動物園", type: "transport", query: "Circular Quay", cost: "船票" },
+                    { time: "09:30", text: "動物園", type: "play", query: "Taronga Zoo Sydney", cost: "門票" },
+                    { time: "13:30", text: "回市區", type: "transport", query: "Sydney CBD", cost: "-" },
+                    { time: "15:00", text: "岩石區", type: "leisure", query: "The Rocks Sydney", cost: "-" },
+                    { time: "16:00", text: "港灣大橋", type: "must", query: "Sydney Harbour Bridge", cost: "免費" },
+                    { time: "18:00", text: "賽前晚餐 (義大利餐)", type: "food", query: "Italian Restaurant Sydney", cost: "約 TWD 800" }
+                ]
             },
-            marathonDay, // 8/30 共同的馬拉松行程
+            marathonDay, // 8/30 共同的馬拉松行程 (使用上方更新過飯店的物件)
             {
                 date: "8/31 (一)",
-                title: "賽後恢復",
-                location: "Sydney",
-                icon: "fa-bed",
+                title: "海岸與文青街區",
+                location: "Sydney Coast",
+                icon: "fa-umbrella-beach",
                 color: "gray",
                 image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
-                desc: "睡到自然醒，安排按摩或簡單散步排乳酸。",
-                hotel: { name: "Amora Hotel Jamison Sydney (待定)", price: "約 TWD 6,000/晚" },
-                activities: []
+                desc: "賽後恢復，漫步絕美海岸線與探索文青愛店。",
+                hotel: { name: "庫吉金沙大飯店 (Coogee Sands Hotel)", price: "約 TWD 6,000/晚" },
+                activities: [
+                    { time: "09:00", text: "海灘", type: "relax", query: "Bondi Beach", cost: "免費" },
+                    { time: "10:00", text: "海岸步道", type: "relax", query: "Bondi to Coogee Coastal Walk", cost: "免費" },
+                    { time: "12:00", text: "Bronte 海灘", type: "relax", query: "Bronte Beach", cost: "免費" },
+                    { time: "15:00", text: "文青區", type: "leisure", query: "Paddington Sydney", cost: "-" },
+                    { time: "18:00", text: "精釀啤酒", type: "food", query: "Young Henrys Newtown", cost: "依消費" }
+                ]
             },
             {
                 date: "9/1 (二)",
-                title: "搭機回國",
+                title: "賦歸",
                 location: "Flight",
                 icon: "fa-plane",
                 color: "gray",
                 image: "https://images.unsplash.com/photo-1556388158-158ea5ccacbd?auto=format&fit=crop&w=800&q=80",
-                desc: "前往機場，滿載完賽榮譽返回台灣。",
+                desc: "享用在地人氣早餐後，滿載回憶返回台灣。",
                 hotel: { name: "溫暖的家", price: "-" },
-                activities: []
+                activities: [
+                    { time: "06:30", text: "早餐", type: "food", query: "The Grounds of Alexandria", cost: "約 TWD 600" },
+                    { time: "08:00", text: "前往機場", type: "transport", query: "Sydney Airport", cost: "-" },
+                    { time: "10:10", text: "起飛", type: "transport", query: "SYD", cost: "-" }
+                ]
             }
         ];
 
@@ -406,12 +442,12 @@
             minimal: minimalistItinerary
         };
 
-        // Budget Data
+        // Budget Data (Base Costs without international flights for dynamic calculation)
         const budgets = {
             reef: {
-                total: 86884,
+                baseTotal: 63700, // 4500 + 31500 + 8500 + 12200 + 7000
                 items: [
-                    { name: "機票 (台北-雪梨)", cost: 23184, note: "國泰航空不選位" },
+                    { name: "機票 (台北-雪梨)", costStr: "視艙等而定", note: "國泰航空 (一般/寬敞)" },
                     { name: "國內機票 (雪梨-PPP)", cost: 4500, note: "預估" },
                     { name: "住宿 (6晚)", cost: 31500, note: "雪梨3晚+大堡礁3晚" },
                     { name: "當地交通/租車", cost: 8500, note: "機場接駁+Airlie租車" },
@@ -420,9 +456,9 @@
                 ]
             },
             snow: {
-                total: 80184,
+                baseTotal: 57000, // 30000 + 14000 + 6000 + 7000
                 items: [
-                    { name: "機票 (台北-雪梨)", cost: 23184, note: "國泰航空不選位" },
+                    { name: "機票 (台北-雪梨)", costStr: "視艙等而定", note: "國泰航空 (一般/寬敞)" },
                     { name: "住宿 (6晚)", cost: 30000, note: "雪梨3晚+雪山3晚" },
                     { name: "租車與油資 (4天)", cost: 14000, note: "含雪梨來回油資" },
                     { name: "行程 (滑雪/纜車)", cost: 6000, note: "視天氣決定項目" },
@@ -430,15 +466,18 @@
                 ]
             },
             minimal: {
-                total: 62184,
+                baseTotal: 39000, // 30000 + 2000 + 7000
                 items: [
-                    { name: "機票 (台北-雪梨)", cost: 23184, note: "國泰航空不選位" },
-                    { name: "住宿 (5晚)", cost: 30000, note: "雪梨市區飯店 (8/27-9/1)" },
+                    { name: "機票 (台北-雪梨)", costStr: "視艙等而定", note: "國泰航空 (一般/寬敞)" },
+                    { name: "住宿 (5晚)", cost: 30000, note: "庫吉金沙大飯店 (8/27-9/1)" },
                     { name: "當地交通", cost: 2000, note: "機場地鐵與市區大眾運輸" },
                     { name: "餐飲與雜支", cost: 7000, note: "日常飲食與慶功宴" }
                 ]
             }
         };
+
+        const flightStandardPrice = 25262;
+        const flightExtraPrice = 36782;
 
         // State
         let currentPlan = 'reef';
@@ -602,7 +641,7 @@
             const container = document.getElementById('app-container');
             const list = currentPlan === 'reef' ? checklistReef : (currentPlan === 'snow' ? checklistSnow : checklistMinimal);
 
-            let titleStr = currentPlan === 'reef' ? '大堡礁' : (currentPlan === 'snow' ? '雪山' : '極簡跑馬');
+            let titleStr = currentPlan === 'reef' ? '大堡礁' : (currentPlan === 'snow' ? '雪山' : '雪梨深度遊');
 
             let html = '<div class="space-y-6 pb-8 bg-white p-6 rounded-2xl shadow-sm animate-fade-in">';
             html += `<h2 class="text-xl font-bold text-gray-800 mb-4">🎒 ${titleStr} 必備行囊清單</h2>`;
@@ -631,7 +670,11 @@
         function renderBudget() {
             const container = document.getElementById('app-container');
             const data = budgets[currentPlan];
-            let planName = currentPlan === 'reef' ? '方案A (大堡礁)' : (currentPlan === 'snow' ? '方案B (雪山)' : '方案C (極簡跑馬)');
+            let planName = currentPlan === 'reef' ? '方案A (大堡礁)' : (currentPlan === 'snow' ? '方案B (雪山)' : '方案C (雪梨深度遊)');
+
+            // Calculate respective totals
+            const totalStandard = data.baseTotal + flightStandardPrice;
+            const totalExtra = data.baseTotal + flightExtraPrice;
 
             let html = `
             <div class="space-y-6 pb-8 animate-fade-in">
@@ -695,11 +738,11 @@
                         <div class="flex gap-2 pt-2">
                             <div class="flex-1 bg-blue-50 p-3 rounded-lg border border-blue-100 text-center">
                                 <div class="text-xs text-blue-600 mb-1">一般座位</div>
-                                <div class="font-bold text-gray-800">TWD $23,184</div>
+                                <div class="font-bold text-gray-800">TWD $${flightStandardPrice.toLocaleString()}</div>
                             </div>
                             <div class="flex-1 bg-amber-50 p-3 rounded-lg border border-amber-100 text-center">
                                 <div class="text-xs text-amber-700 mb-1">寬敞座位</div>
-                                <div class="font-bold text-gray-800">TWD $34,704</div>
+                                <div class="font-bold text-gray-800">TWD $${flightExtraPrice.toLocaleString()}</div>
                             </div>
                         </div>
                     </div>
@@ -721,17 +764,26 @@
                                     <div class="text-sm font-medium text-gray-700">${item.name}</div>
                                     <div class="text-[10px] text-gray-400">${item.note}</div>
                                 </div>
-                                <div class="text-sm font-mono font-bold text-gray-800">
-                                    $${item.cost.toLocaleString()}
+                                <div class="text-sm font-mono font-bold ${item.costStr ? 'text-gray-500' : 'text-gray-800'}">
+                                    ${item.costStr ? item.costStr : '$' + item.cost.toLocaleString()}
                                 </div>
                             </div>
                             `).join('')}
                         </div>
 
-                        <div class="bg-gray-800 text-white p-4 rounded-xl flex justify-between items-center">
-                            <div class="text-sm opacity-80 uppercase tracking-widest">Total Estimated</div>
-                            <div class="text-2xl font-bold font-mono text-emerald-400">
-                                <span class="text-sm mr-1">TWD</span>$${data.total.toLocaleString()}
+                        <!-- Side by Side Totals based on Seats -->
+                        <div class="flex gap-3">
+                            <div class="flex-1 bg-gray-800 text-white p-4 rounded-xl flex flex-col justify-center">
+                                <div class="text-[10px] opacity-80 uppercase tracking-widest mb-1"><i class="fa-solid fa-chair mr-1"></i>一般座位總計</div>
+                                <div class="text-xl font-bold font-mono text-emerald-400 leading-none">
+                                    <span class="text-xs mr-1 font-sans">TWD</span>$${totalStandard.toLocaleString()}
+                                </div>
+                            </div>
+                            <div class="flex-1 bg-amber-900 text-white p-4 rounded-xl flex flex-col justify-center border border-amber-800">
+                                <div class="text-[10px] opacity-80 uppercase tracking-widest mb-1"><i class="fa-solid fa-couch mr-1"></i>寬敞座位總計</div>
+                                <div class="text-xl font-bold font-mono text-amber-400 leading-none">
+                                    <span class="text-xs mr-1 font-sans">TWD</span>$${totalExtra.toLocaleString()}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -762,7 +814,7 @@
                 subtitle.innerText = "澳洲最高峰之旅";
             } else if (plan === 'minimal') {
                 header.classList.add('hero-gradient-minimal');
-                subtitle.innerText = "極簡跑馬之旅";
+                subtitle.innerText = "雪梨深度之旅";
             } else {
                 header.classList.add('hero-gradient');
                 subtitle.innerText = "大堡礁之旅";
