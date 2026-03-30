@@ -5,11 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Run & Sydney 2026 旅程規劃</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap"
         rel="stylesheet">
 
@@ -29,7 +26,6 @@
             scrollbar-width: none;
         }
 
-        /* 平滑展開動畫 */
         .activity-details {
             transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
             max-height: 0;
@@ -54,7 +50,6 @@
 
         .nav-btn.active {
             color: #ea580c;
-            /* text-orange-600 */
         }
 
         @keyframes fadeIn {
@@ -77,7 +72,6 @@
 
 <body class="pb-24">
 
-    <!-- Header Section -->
     <header id="hero-header"
         class="hero-gradient-minimal text-white p-6 rounded-b-3xl shadow-lg relative overflow-hidden">
         <div class="absolute top-0 right-0 opacity-10 pointer-events-none">
@@ -90,7 +84,6 @@
             </div>
             <h1 class="text-3xl font-bold mb-1">雪梨馬拉松 <br>& <span id="trip-subtitle">城市奔跑之旅</span></h1>
 
-            <!-- 倒數計時 -->
             <div class="mt-6 bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/10">
                 <div class="text-xs uppercase tracking-wide opacity-75 mb-1">距離 8/30 賽事日</div>
                 <div class="flex justify-between text-center font-mono" id="countdown">
@@ -100,12 +93,9 @@
         </div>
     </header>
 
-    <!-- Main Content Area -->
     <main class="p-4 max-w-2xl mx-auto pt-6" id="app-container">
-        <!-- 由 JavaScript 渲染 -->
     </main>
 
-    <!-- Bottom Navigation -->
     <nav class="fixed bottom-0 left-0 right-0 glass-nav z-50 max-w-2xl mx-auto">
         <div class="flex justify-around items-center h-16 pb-safe">
             <button onclick="switchTab('itinerary')"
@@ -130,9 +120,7 @@
     </nav>
 
     <script>
-        // --- 資料設定 ---
-        const flightStandardPrice = 31791;
-        const flightExtraPrice = 43311;
+        const flightPrice = 32841;
 
         // 匯率假設 1 AUD = 21 TWD
         const hotelInfo = {
@@ -253,7 +241,6 @@
             }
         ];
 
-        // 預算資料
         const budgets = {
             standard: {
                 name: "雪梨馬拉松挑戰方案",
@@ -273,8 +260,6 @@
             { cat: "賽事裝備", items: ["跑鞋 (建議穿習慣的)", "比賽跑衣/跑褲", "能量膠 / 鹽錠", "防磨凡士林", "號碼布腰帶"] },
             { cat: "生活用品", items: ["八字型轉接頭", "行動電源", "輕便保暖外套 (清晨較冷)", "常用個人藥品"] }
         ];
-
-        // --- 功能實作 ---
 
         function updateCountdown() {
             const raceDate = new Date("2026-08-30T07:00:00+10:00").getTime();
@@ -316,7 +301,7 @@
                             <h3 class="text-xl font-bold leading-tight">${day.title}</h3>
                         </div>
                     </div>
-                    <div id="card-${index}" class="activity-details ${day.highlight ? 'open' : ''}"> 
+                    <div id="card-${index}" class="activity-details ${day.highlight ? 'open' : ''}">
                         <div class="p-5">
                             <p class="text-sm text-gray-500 mb-4 italic pl-3 border-l-2 border-orange-200">"${day.desc}"</p>
                             ${day.hotel && day.hotel.name !== "-" ? `
@@ -364,16 +349,12 @@
         function renderBudget() {
             const container = document.getElementById('app-container');
             const data = budgets[currentPlan];
-            let planName = budgets[currentPlan].name;
-
-            // Calculate respective totals
-            const totalStandard = data.baseTotal + flightStandardPrice;
-            const totalExtra = data.baseTotal + flightExtraPrice;
+            const planName = budgets[currentPlan].name;
+            const total = data.baseTotal + flightPrice;
 
             let html = `
             <div class="space-y-6 pb-8 animate-fade-in">
                 
-                <!-- Flight Card (國泰航空風格) -->
                 <div class="bg-white p-5 rounded-2xl shadow-sm border-t-4 border-emerald-700">
                     <div class="flex items-center gap-2 mb-4">
                         <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/17/Cathay_Pacific_logo.svg/1200px-Cathay_Pacific_logo.svg.png" class="h-6 object-contain" alt="Cathay Pacific">
@@ -381,7 +362,6 @@
                     </div>
                     
                     <div class="space-y-4">
-                        <!-- Outbound -->
                         <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
                             <div class="text-xs text-gray-500 font-bold mb-2 flex justify-between">
                                 <span><i class="fa-solid fa-plane-departure mr-1 text-blue-500"></i>去程 | 8/26 (三)</span>
@@ -403,7 +383,6 @@
                             </div>
                         </div>
 
-                        <!-- Inbound -->
                         <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
                             <div class="text-xs text-gray-500 font-bold mb-2 flex justify-between">
                                 <span><i class="fa-solid fa-plane-arrival mr-1 text-blue-500"></i>回程 | 8/31 (一)</span>
@@ -425,21 +404,15 @@
                             </div>
                         </div>
 
-                        <!-- Price Detail -->
-                        <div class="flex gap-2 pt-2">
-                            <div class="flex-1 bg-blue-50 p-3 rounded-lg border border-blue-100 text-center">
-                                <div class="text-xs text-blue-600 mb-1">一般座位</div>
-                                <div class="font-bold text-gray-800">TWD $${flightStandardPrice.toLocaleString()}</div>
-                            </div>
-                            <div class="flex-1 bg-amber-50 p-3 rounded-lg border border-amber-100 text-center">
-                                <div class="text-xs text-amber-700 mb-1">寬敞座位</div>
-                                <div class="font-bold text-gray-800">TWD $${flightExtraPrice.toLocaleString()}</div>
+                        <div class="pt-2">
+                            <div class="bg-blue-50 p-3 rounded-lg border border-blue-100 text-center">
+                                <div class="text-xs text-blue-600 mb-1">機票</div>
+                                <div class="font-bold text-gray-800">TWD $${flightPrice.toLocaleString()}</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Budget Details Card -->
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden">
                     <div class="absolute top-0 right-0 p-4 opacity-5">
                         <i class="fa-solid fa-file-invoice-dollar text-8xl"></i>
@@ -462,19 +435,13 @@
                             `).join('')}
                         </div>
 
-                        <!-- Final Totals Card -->
-                        <div class="flex gap-3">
-                            <div class="flex-1 bg-slate-800 text-white p-4 rounded-xl flex flex-col justify-center shadow-lg">
-                                <div class="text-[10px] opacity-80 uppercase tracking-widest mb-1"><i class="fa-solid fa-chair mr-1"></i>一般座位總計</div>
-                                <div class="text-xl font-bold font-mono text-emerald-400 leading-none">
-                                    <span class="text-xs mr-1 font-sans font-normal opacity-70">TWD</span>$${totalStandard.toLocaleString()}
-                                </div>
+                        <div class="bg-slate-800 text-white p-4 rounded-xl shadow-lg">
+                            <div class="text-[10px] opacity-80 uppercase tracking-widest mb-1">
+                                <i class="fa-solid fa-plane mr-1"></i>總花費
                             </div>
-                            <div class="flex-1 bg-orange-900 text-white p-4 rounded-xl flex flex-col justify-center shadow-lg border border-orange-800">
-                                <div class="text-[10px] opacity-80 uppercase tracking-widest mb-1"><i class="fa-solid fa-couch mr-1"></i>寬敞座位總計</div>
-                                <div class="text-xl font-bold font-mono text-white leading-none">
-                                    <span class="text-xs mr-1 font-sans font-normal opacity-70">TWD</span>$${totalExtra.toLocaleString()}
-                                </div>
+                            <div class="text-xl font-bold font-mono text-emerald-400 leading-none">
+                                <span class="text-xs mr-1 font-sans font-normal opacity-70">TWD</span>
+                                $${total.toLocaleString()}
                             </div>
                         </div>
                     </div>
@@ -491,6 +458,7 @@
                 btn.classList.add('text-gray-400');
                 if (btn.id === `btn-${tab}`) btn.classList.add('active', 'text-orange-600');
             });
+
             if (tab === 'itinerary') renderItinerary();
             else if (tab === 'checklist') renderChecklist();
             else if (tab === 'budget') renderBudget();
