@@ -122,10 +122,17 @@
     <script>
         const flightPrice = 32841;
 
-        // 匯率假設 1 AUD = 21 TWD
         const hotelInfo = {
             name: "25hours Hotel Sydney The Olympia",
-            price: "149.75 AUD/晚 (約 TWD 3,145)"
+            price: "149.75 AUD/晚 (約 TWD 3,145)",
+            map: "https://maps.app.goo.gl/rig64k4KgLaLLSvVA",
+            website: "https://25hours-hotels.com/sydney/the-olympia/"
+        };
+
+        const miniMarathon = {
+            name: "Sydney Mini Marathon",
+            website: "https://www.tcssydneymarathon.com/minimarathon",
+            price: 1810
         };
 
         const itinerary = [
@@ -135,7 +142,7 @@
                 location: "Flight",
                 icon: "fa-plane-departure",
                 color: "gray",
-                image: "https://images.unsplash.com/photo-1436491865332-7a6153212e7e?auto=format&fit=crop&w=800&q=80",
+                image: "https://cdn.uc.assets.prezly.com/4fd88f81-ee9a-41f8-9832-64bdd785579d/-/preview/2048x2048/-/quality/best/-/format/auto/",
                 desc: "搭乘國泰航空前往雪梨，準備迎接世界大馬的挑戰。",
                 hotel: { name: "機上", price: "-" },
                 activities: [
@@ -164,32 +171,33 @@
             },
             {
                 date: "8/28 (五)",
-                title: "壯麗藍山一日遊",
-                location: "Blue Mountains",
-                icon: "fa-mountain",
-                color: "gray",
-                image: "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=80",
-                desc: "遠離市區喧囂，感受澳洲大自然的鬼斧神工。",
-                hotel: hotelInfo,
-                activities: [
-                    { time: "08:30", text: "出發藍山國家公園", type: "transport", query: "Central Station Sydney", cost: "交通費" },
-                    { time: "10:30", text: "三姐妹岩景觀", type: "must", query: "Three Sisters Blue Mountains", cost: "免費" },
-                    { time: "13:00", text: "Scenic World 纜車", type: "play", query: "Scenic World Blue Mountains", cost: "門票" },
-                    { time: "18:30", text: "返回市區", type: "transport", query: "Sydney", cost: "-" }
-                ]
-            },
-            {
-                date: "8/29 (六)",
-                title: "動物魅力 & 賽前準備",
+                title: "動物魅力 & 市區漫步",
                 location: "Sydney",
                 icon: "fa-hippo",
                 color: "gray",
                 image: "https://ppt.cc/fB0BOx@.jpg",
-                desc: "與袋鼠無尾熊見面，晚上進行高碳水晚餐。",
+                desc: "與袋鼠無尾熊見面，下午在岩石區悠閒散步。",
                 hotel: hotelInfo,
                 activities: [
                     { time: "09:30", text: "塔龍加動物園", type: "play", query: "Taronga Zoo Sydney", cost: "門票" },
-                    { time: "14:00", text: "岩石區市集漫步", type: "leisure", query: "The Rocks Sydney", cost: "-" },
+                    { time: "14:00", text: "岩石區市集漫步", type: "leisure", query: "The Rocks Sydney", cost: "-" }
+                ]
+            },
+            {
+                date: "8/29 (六)",
+                title: "🏃‍♂️ 雪梨迷你馬拉松 & 賽前準備",
+                location: "Sydney",
+                icon: "fa-person-running",
+                color: "orange",
+                image: "https://images.unsplash.com/photo-1502904550040-7534597429ae?auto=format&fit=crop&w=800&q=80",
+                mapImage: "https://static.wixstatic.com/media/17da07_4c55d06743214dc8aea6a866b39a49f5~mv2.png/v1/fill/w_980,h_1386,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/2025-Mini.png",
+                desc: "參加 Sydney Mini Marathon，提前感受賽事氣氛，下午恢復，晚上進行賽前準備。",
+                hotel: hotelInfo,
+                activities: [
+                    { time: "06:30", text: "前往起跑區集合", type: "transport", query: "Macquarie St Sydney", cost: "-" },
+                    { time: "07:15", text: "Mini Marathon 開跑 (5K)", type: "miniRun", query: "Macquarie St Sydney", cost: "80 AUD / 約 TWD 1,810" },
+                    { time: "08:30", text: "完賽 & 歌劇院拍照", type: "finish", query: "Sydney Opera House", cost: "-" },
+                    { time: "10:30", text: "飯店休息 / 放鬆", type: "rest", query: "25hours Hotel Sydney The Olympia", cost: "-" },
                     { time: "18:00", text: "賽前碳水大餐 (義大利麵)", type: "food", query: "Italian Restaurant Sydney", cost: "約 TWD 1,000" }
                 ]
             },
@@ -244,10 +252,11 @@
         const budgets = {
             standard: {
                 name: "雪梨馬拉松挑戰方案",
-                baseTotal: 22579,
+                baseTotal: 24389,
                 items: [
-                    { name: "住宿 (4晚)", cost: 12579, note: "25hours Hotel (149.75 AUD * 4)" },
-                    { name: "交通與景點門票", cost: 3000, note: "地鐵、藍山與動物園" },
+                    { name: "住宿 (4晚)", cost: 12579, note: "25hours Hotel (149.75 AUD * 4)", linkType: "hotel" },
+                    { name: "Mini Marathon 報名費", cost: 1810, note: "80 AUD / 約 TWD 1,810", linkType: "mini" },
+                    { name: "交通與景點門票", cost: 3000, note: "地鐵、藍山與景點交通" },
                     { name: "基本餐飲預估", cost: 7000, note: "包含賽前高碳水與慶功宴" }
                 ]
             }
@@ -256,8 +265,8 @@
         const currentPlan = 'standard';
 
         const checklist = [
-            { cat: "重要文件", items: ["護照 (效期6個月以上)", "澳洲 ETA 簽證", "馬拉松報名確認信", "飯店預訂確認書"] },
-            { cat: "賽事裝備", items: ["跑鞋 (建議穿習慣的)", "比賽跑衣/跑褲", "能量膠 / 鹽錠", "防磨凡士林", "號碼布腰帶"] },
+            { cat: "重要文件", items: ["護照 (效期6個月以上)", "澳洲 ETA 簽證", "馬拉松報名確認信", "Mini Marathon 報名確認信", "飯店預訂確認書"] },
+            { cat: "賽事裝備", items: ["跑鞋 (建議穿習慣的)", "比賽跑衣/跑褲", "Mini Marathon 輕便跑步裝備", "能量膠 / 鹽錠", "防磨凡士林", "號碼布腰帶"] },
             { cat: "生活用品", items: ["八字型轉接頭", "行動電源", "輕便保暖外套 (清晨較冷)", "常用個人藥品"] }
         ];
 
@@ -307,7 +316,11 @@
                             ${day.hotel && day.hotel.name !== "-" ? `
                             <div class="mb-4 bg-orange-50/30 p-3 rounded-lg border border-orange-100">
                                 <div class="text-xs text-orange-400 uppercase font-bold tracking-wider mb-1">住宿</div>
-                                <div class="font-medium text-gray-800 text-sm">${day.hotel.name}</div>
+                                <div class="font-medium text-gray-800 text-sm flex items-center gap-2">
+                                    ${day.hotel.name}
+                                    ${day.hotel.map ? `<a href="${day.hotel.map}" target="_blank" rel="noopener noreferrer" class="text-orange-500"><i class="fa-solid fa-map-location-dot"></i></a>` : ''}
+                                    ${day.hotel.website ? `<a href="${day.hotel.website}" target="_blank" rel="noopener noreferrer" class="text-blue-500"><i class="fa-solid fa-globe"></i></a>` : ''}
+                                </div>
                                 <div class="text-xs text-emerald-600 font-bold mt-1">${day.hotel.price}</div>
                             </div>
                             ` : ''}
@@ -319,8 +332,15 @@
                                         <div class="flex-none w-10 text-right pt-1 text-xs font-mono text-gray-400 bg-white z-10">${act.time || '-'}</div>
                                         <div class="flex-1">
                                             <div class="flex justify-between items-start">
-                                                <div class="font-medium text-gray-800 text-sm">${act.text}</div>
-                                                ${act.query ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(act.query)}" target="_blank" class="text-orange-500"><i class="fa-solid fa-location-arrow text-xs"></i></a>` : ''}
+                                                <div class="font-medium text-gray-800 text-sm flex items-center gap-2">
+                                                    ${act.text}
+                                                    ${act.type === 'miniRun' ? `
+                                                        <a href="${miniMarathon.website}" target="_blank" rel="noopener noreferrer" class="text-blue-500">
+                                                            <i class="fa-solid fa-globe"></i>
+                                                        </a>
+                                                    ` : ''}
+                                                </div>
+                                                ${act.query ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(act.query)}" target="_blank" rel="noopener noreferrer" class="text-orange-500"><i class="fa-solid fa-location-arrow text-xs"></i></a>` : ''}
                                             </div>
                                             <div class="text-[10px] text-emerald-600 font-medium mt-0.5">${act.cost !== '-' ? act.cost : ''}</div>
                                         </div>
@@ -425,7 +445,22 @@
                             ${data.items.map(item => `
                             <div class="flex justify-between items-center border-b border-gray-50 pb-2">
                                 <div>
-                                    <div class="text-sm font-medium text-gray-700">${item.name}</div>
+                                    <div class="text-sm font-medium text-gray-700 flex items-center gap-2">
+                                        ${item.name}
+                                        ${item.linkType === 'hotel' ? `
+                                            <a href="${hotelInfo.map}" target="_blank" rel="noopener noreferrer" class="text-orange-500">
+                                                <i class="fa-solid fa-map-location-dot"></i>
+                                            </a>
+                                            <a href="${hotelInfo.website}" target="_blank" rel="noopener noreferrer" class="text-blue-500">
+                                                <i class="fa-solid fa-globe"></i>
+                                            </a>
+                                        ` : ''}
+                                        ${item.linkType === 'mini' ? `
+                                            <a href="${miniMarathon.website}" target="_blank" rel="noopener noreferrer" class="text-blue-500">
+                                                <i class="fa-solid fa-globe"></i>
+                                            </a>
+                                        ` : ''}
+                                    </div>
                                     <div class="text-[10px] text-gray-400">${item.note}</div>
                                 </div>
                                 <div class="text-sm font-mono font-bold ${item.costStr ? 'text-gray-500' : 'text-gray-800'}">
