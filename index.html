@@ -124,7 +124,7 @@
 
         const hotelInfo = {
             name: "25hours Hotel Sydney The Olympia",
-            price: "149.75 AUD/晚 (約 TWD 3,145)",
+            price: "TWD 3,423.5",
             map: "https://maps.app.goo.gl/rig64k4KgLaLLSvVA",
             website: "https://25hours-hotels.com/sydney/the-olympia/"
         };
@@ -252,9 +252,8 @@
         const budgets = {
             standard: {
                 name: "雪梨馬拉松挑戰方案",
-                baseTotal: 24389,
                 items: [
-                    { name: "住宿 (4晚)", cost: 12579, note: "25hours Hotel (149.75 AUD * 4)", linkType: "hotel" },
+                    { name: "住宿 (4晚)", cost: 13694, note: "25hours Hotel (149.75 AUD * 4)", linkType: "hotel" },
                     { name: "Mini Marathon 報名費", cost: 1810, note: "80 AUD / 約 TWD 1,810", linkType: "mini" },
                     { name: "交通與景點門票", cost: 3000, note: "地鐵、藍山與景點交通" },
                     { name: "基本餐飲預估", cost: 7000, note: "包含賽前高碳水與慶功宴" }
@@ -370,7 +369,8 @@
             const container = document.getElementById('app-container');
             const data = budgets[currentPlan];
             const planName = budgets[currentPlan].name;
-            const total = data.baseTotal + flightPrice;
+            const baseTotal = data.items.reduce((sum, item) => sum + item.cost, 0);
+            const total = baseTotal + flightPrice;
 
             let html = `
             <div class="space-y-6 pb-8 animate-fade-in">
