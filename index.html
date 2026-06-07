@@ -161,6 +161,10 @@
                 image: "https://www.bring-you.info/imgs/2019/12/sydney-26.jpg",
                 desc: "抵達雪梨，入住飯店並領取比賽物資。",
                 hotel: hotelInfo,
+                optionalPlaces: [
+                    { label: "達令港（Darling Harbour）", query: "Darling Harbour" },
+                    { label: "雪梨魚市場（Sydney Fish Market）", query: "Sydney Fish Market" }
+                ],
                 activities: [
                     { time: "06:10", text: "抵達雪梨 (SYD)", type: "transport", query: "Sydney Airport", cost: "-" },
                     { time: "08:00", text: "飯店寄放行李", type: "stay", query: "25hours Hotel Sydney The Olympia", cost: "-" },
@@ -176,11 +180,17 @@
                 icon: "fa-hippo",
                 color: "gray",
                 image: "https://ppt.cc/fB0BOx@.jpg",
-                desc: "與袋鼠無尾熊見面，下午在岩石區悠閒散步。",
+                desc: "上午走訪 Taronga Zoo，下午搭賞鯨郵輪出海，把港灣與野生動物一次收進行程。",
                 hotel: hotelInfo,
+                optionalPlaces: [
+                    { label: "環形碼頭（Circular Quay）", query: "Circular Quay" },
+                    { label: "雪梨港灣大橋（Sydney Harbour Bridge）", query: "Sydney Harbour Bridge" }
+                ],
                 activities: [
-                    { time: "09:30", text: "塔龍加動物園", type: "play", query: "Taronga Zoo Sydney", cost: "門票" },
-                    { time: "14:00", text: "岩石區市集漫步", type: "leisure", query: "The Rocks Sydney", cost: "-" }
+                    { time: "08:30", text: "陸上交通前往 Taronga Zoo", type: "transport", query: "Taronga Zoo Sydney", cost: "交通費" },
+                    { time: "09:30", text: "Taronga Zoo 塔龍加動物園", type: "play", query: "Taronga Zoo Sydney", cost: "NT$1,242", link: "https://www.kkday.com/zh-tw/product/7317-taronga-zoo-ticket-sydney-australia?utm_source=chatgpt.com" },
+                    { time: "13:45", text: "搭船前往賞鯨碼頭", type: "transport", query: "Circular Quay - Campbells Cove", cost: "交通費" },
+                    { time: "15:00", text: "賞鯨郵輪出海（環形碼頭 - 坎貝爾灣）", type: "play", query: "Circular Quay - Campbells Cove", cost: "NT$2,054", link: "https://www.kkday.com/zh-tw/product/142497-whale-watching-express-cruise-sydney-australia?utm_source=chatgpt.com" }
                 ]
             },
             {
@@ -193,11 +203,20 @@
                 mapImage: "https://static.wixstatic.com/media/17da07_4c55d06743214dc8aea6a866b39a49f5~mv2.png/v1/fill/w_980,h_1386,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/2025-Mini.png",
                 desc: "參加 Sydney Mini Marathon，提前感受賽事氣氛，下午恢復，晚上進行賽前準備。",
                 hotel: hotelInfo,
+                optionalPlaces: [
+                    { label: "維多利亞女王大廈（Queen Victoria Building）", query: "Queen Victoria Building Sydney" },
+                    { label: "皮特街購物中心（Pitt Street Mall）", query: "Pitt Street Mall Sydney" },
+                    { label: "海德公園（Hyde Park）", query: "Hyde Park Sydney" },
+                    { label: "聖瑪麗大教堂（St Mary's Cathedral）", query: "St Mary's Cathedral Sydney" },
+                    { label: "黑星甜點（Black Star Pastry）", query: "Black Star Pastry Sydney" }
+                ],
                 activities: [
                     { time: "06:30", text: "前往起跑區集合", type: "transport", query: "Macquarie St Sydney", cost: "-" },
                     { time: "07:15", text: "Mini Marathon 開跑 (5K)", type: "miniRun", query: "Macquarie St Sydney", cost: "80 AUD / 約 TWD 1,810" },
                     { time: "08:30", text: "完賽 & 歌劇院拍照", type: "finish", query: "Sydney Opera House", cost: "-" },
                     { time: "10:30", text: "飯店休息 / 放鬆", type: "rest", query: "25hours Hotel Sydney The Olympia", cost: "-" },
+                    { time: "13:30", text: "雪梨歌劇院導覽", type: "play", query: "Sydney Opera House", cost: "NT$825", link: "https://www.kkday.com/zh-tw/product/19683-sydney-opera-house-walking-tour-english-japanese-korea-with-opera-kitchen-meal?utm_source=chatgpt.com" },
+                    { time: "16:00", text: "Sydney Tower Eye 雪梨塔", type: "play", query: "Sydney Tower Eye", cost: "NT$655", link: "https://www.kkday.com/zh-tw/product/6104-sydney-tower-eye-ticket-new-south-wales?utm_source=chatgpt.com" },
                     { time: "18:00", text: "賽前碳水大餐 (義大利麵)", type: "food", query: "Italian Restaurant Sydney", cost: "約 TWD 1,000" }
                 ]
             },
@@ -216,7 +235,7 @@
                     { time: "06:00", text: "抵達起跑區", type: "transport", query: "Sydney", cost: "-" },
                     { time: "07:00", text: "全馬鳴槍起跑", type: "run", query: "Sydney Harbour Bridge", cost: "已付" },
                     { time: "11:30", text: "歌劇院前完賽", type: "finish", query: "Sydney Opera House", cost: "成就達成" },
-                    { time: "18:00", text: "賽後慶功晚宴", type: "food", query: "The Glenmore Hotel", cost: "約 TWD 2,000" }
+                    { time: "17:00", text: "雪梨港夕陽晚餐郵輪", type: "food", query: "Sydney Harbour sunset dinner cruise", cost: "NT$3,364", link: "https://www.kkday.com/zh-tw/product/121684-sydney-harbour-sunset-dinner-cruise?utm_source=chatgpt.com" }
                 ]
             },
             {
@@ -228,6 +247,10 @@
                 image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
                 desc: "最後的海岸漫步，帶著完賽獎牌回家。",
                 hotel: { name: "晚間搭機返台", price: "-" },
+                optionalPlaces: [
+                    { label: "Mountain Equipment 戶外用品店（Mountain Equipment）", query: "Mountain Equipment Sydney" },
+                    { label: "捷安特雪梨（Giant Sydney）", query: "Giant Sydney" }
+                ],
                 activities: [
                     { time: "10:00", text: "邦代海灘放鬆", type: "relax", query: "Bondi Beach", cost: "免費" },
                     { time: "15:00", text: "市區最後採買", type: "leisure", query: "Queen Victoria Building", cost: "依消費" },
@@ -253,10 +276,16 @@
             standard: {
                 name: "雪梨馬拉松挑戰方案",
                 items: [
-                    { name: "住宿 (4晚)", cost: 13694, note: "25hours Hotel (149.75 AUD * 4)", linkType: "hotel" },
-                    { name: "Mini Marathon 報名費", cost: 1810, note: "80 AUD / 約 TWD 1,810", linkType: "mini" },
-                    { name: "交通與景點門票", cost: 3000, note: "地鐵、藍山與景點交通" },
-                    { name: "基本餐飲預估", cost: 7000, note: "包含賽前高碳水與慶功宴" }
+                    { name: "全馬報名費", cost: 0, costStr: "已付", note: "TCS Sydney Marathon 2026", payment: "paid" },
+                    { name: "住宿 (4晚)", cost: 13694, note: "25hours Hotel (149.75 AUD * 4)", linkType: "hotel", payment: "unpaid" },
+                    { name: "Mini Marathon 報名費", cost: 1810, note: "80 AUD / 約 TWD 1,810", linkType: "mini", payment: "paid" },
+                    { name: "Taronga Zoo 塔龍加動物園", cost: 1242, note: "KKday", link: "https://www.kkday.com/zh-tw/product/7317-taronga-zoo-ticket-sydney-australia?utm_source=chatgpt.com", payment: "unpaid" },
+                    { name: "賞鯨郵輪", cost: 2054, note: "KKday", link: "https://www.kkday.com/zh-tw/product/142497-whale-watching-express-cruise-sydney-australia?utm_source=chatgpt.com", payment: "unpaid" },
+                    { name: "雪梨歌劇院導覽", cost: 825, note: "KKday", link: "https://www.kkday.com/zh-tw/product/19683-sydney-opera-house-walking-tour-english-japanese-korea-with-opera-kitchen-meal?utm_source=chatgpt.com", payment: "unpaid" },
+                    { name: "Sydney Tower Eye 雪梨塔", cost: 655, note: "KKday", link: "https://www.kkday.com/zh-tw/product/6104-sydney-tower-eye-ticket-new-south-wales?utm_source=chatgpt.com", payment: "unpaid" },
+                    { name: "雪梨港夕陽晚餐郵輪", cost: 3364, note: "KKday 17:00 場次", link: "https://www.kkday.com/zh-tw/product/121684-sydney-harbour-sunset-dinner-cruise?utm_source=chatgpt.com", payment: "unpaid" },
+                    { name: "市區交通預估", cost: 2000, note: "地鐵、巴士與景點移動", payment: "estimate" },
+                    { name: "基本餐飲預估", cost: 7000, note: "日常餐飲與賽前高碳水", payment: "estimate" }
                 ]
             }
         };
@@ -338,6 +367,11 @@
                                                             <i class="fa-solid fa-globe"></i>
                                                         </a>
                                                     ` : ''}
+                                                    ${act.link ? `
+                                                        <a href="${act.link}" target="_blank" rel="noopener noreferrer" class="text-blue-500">
+                                                            <i class="fa-solid fa-globe"></i>
+                                                        </a>
+                                                    ` : ''}
                                                 </div>
                                                 ${act.query ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(act.query)}" target="_blank" rel="noopener noreferrer" class="text-orange-500"><i class="fa-solid fa-location-arrow text-xs"></i></a>` : ''}
                                             </div>
@@ -346,6 +380,18 @@
                                     </div>
                                 `).join('')}
                             </div>
+                            ${day.optionalPlaces ? `
+                            <div class="mt-5 pt-4 border-t border-gray-100">
+                                <div class="text-xs text-gray-400 uppercase font-bold tracking-wider mb-2">可選地點</div>
+                                <div class="flex flex-wrap gap-2">
+                                    ${day.optionalPlaces.map(place => `
+                                        <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.query)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">
+                                            <i class="fa-solid fa-location-dot text-orange-500"></i>${place.label}
+                                        </a>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            ` : ''}
                         </div>
                     </div>
                 </div>`;
@@ -371,6 +417,14 @@
             const planName = budgets[currentPlan].name;
             const baseTotal = data.items.reduce((sum, item) => sum + item.cost, 0);
             const total = baseTotal + flightPrice;
+            const unpaidTotal = data.items
+                .filter(item => item.payment === 'unpaid')
+                .reduce((sum, item) => sum + item.cost, 0);
+            const paymentBadges = {
+                paid: { text: "已付", className: "bg-emerald-50 text-emerald-600 border-emerald-100" },
+                unpaid: { text: "未付", className: "bg-rose-50 text-rose-600 border-rose-100" },
+                estimate: { text: "預估", className: "bg-gray-50 text-gray-500 border-gray-100" }
+            };
 
             let html = `
             <div class="space-y-6 pb-8 animate-fade-in">
@@ -426,7 +480,7 @@
 
                         <div class="pt-2">
                             <div class="bg-blue-50 p-3 rounded-lg border border-blue-100 text-center">
-                                <div class="text-xs text-blue-600 mb-1">機票</div>
+                                <div class="text-xs text-blue-600 mb-1">機票 <span class="ml-1 rounded-full border border-emerald-100 bg-emerald-50 px-1.5 py-0.5 text-[10px] font-bold text-emerald-600">已付</span></div>
                                 <div class="font-bold text-gray-800">TWD $${flightPrice.toLocaleString()}</div>
                             </div>
                         </div>
@@ -447,6 +501,11 @@
                                 <div>
                                     <div class="text-sm font-medium text-gray-700 flex items-center gap-2">
                                         ${item.name}
+                                        ${item.payment ? `
+                                            <span class="rounded-full border px-1.5 py-0.5 text-[10px] font-bold ${paymentBadges[item.payment].className}">
+                                                ${paymentBadges[item.payment].text}
+                                            </span>
+                                        ` : ''}
                                         ${item.linkType === 'hotel' ? `
                                             <a href="${hotelInfo.map}" target="_blank" rel="noopener noreferrer" class="text-orange-500">
                                                 <i class="fa-solid fa-map-location-dot"></i>
@@ -460,6 +519,11 @@
                                                 <i class="fa-solid fa-globe"></i>
                                             </a>
                                         ` : ''}
+                                        ${item.link ? `
+                                            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="text-blue-500">
+                                                <i class="fa-solid fa-globe"></i>
+                                            </a>
+                                        ` : ''}
                                     </div>
                                     <div class="text-[10px] text-gray-400">${item.note}</div>
                                 </div>
@@ -468,6 +532,14 @@
                                 </div>
                             </div>
                             `).join('')}
+                        </div>
+
+                        <div class="bg-rose-50 text-rose-700 p-3 rounded-xl border border-rose-100 mb-3 flex justify-between items-center">
+                            <div>
+                                <div class="text-[10px] uppercase tracking-widest font-bold">待付款</div>
+                                <div class="text-xs text-rose-500">住宿與尚未付款活動</div>
+                            </div>
+                            <div class="font-mono font-bold">TWD $${unpaidTotal.toLocaleString()}</div>
                         </div>
 
                         <div class="bg-slate-800 text-white p-4 rounded-xl shadow-lg">
