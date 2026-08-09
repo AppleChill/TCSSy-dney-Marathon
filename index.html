@@ -34,7 +34,7 @@
         }
 
         .activity-details.open {
-            max-height: 2000px;
+            max-height: 10000px;
             opacity: 1;
         }
 
@@ -135,6 +135,34 @@
             price: 1810
         };
 
+        const marathonInfo = {
+            name: "TCS Sydney Marathon",
+            website: "https://www.tcssydneymarathon.com/marathon",
+            startVenue: "St Leonards Park, North Sydney",
+            startLine: "Miller St, North Sydney"
+        };
+
+        const runningShowInfo = {
+            name: "TCS Sydney Marathon Running Show",
+            website: "https://www.tcssydneymarathon.com/running-show",
+            venue: "Sydney Showground, 1 Showground Road, Sydney Olympic Park NSW 2127"
+        };
+
+        const spectatorInfo = {
+            website: "https://www.tcssydneymarathon.com/spectators-and-entertainment",
+            smartMap: "https://connect.ap.app.pam.co/",
+            reuniteZone: "Royal Botanic Garden Sydney",
+            zones: [
+                { km: "14K / 40.8K", nameZh: "ASICS 應援區", nameEn: "ASICS Party Zone", location: "Top of Macquarie St, Sydney NSW", tag: "最方便", featured: true, desc: "同一地點可看到跑者兩次，第二次已接近終點；現場有主持人、DJ、大螢幕與看台。", transport: "Martin Place Metro 或 St James Station" },
+                { km: "33.3K", nameZh: "世紀公園應援區", nameEn: "Party in the Park", location: "The Homestead, Centennial Park NSW", tag: "最需要鼓勵", featured: true, desc: "接近馬拉松「撞牆期」，是對跑者鼓勵幫助最大的應援點。", transport: "輕軌至 Moore Park，或從 Oxford St 附近公車站步行約 10 分鐘" },
+                { km: "39.2K", nameZh: "海港派對應援區", nameEn: "Harbour Party", location: "Mrs Macquarie's Chair Sydney", tag: "最後衝刺", alcohol: true, featured: true, desc: "位於最後幾公里，有 DJ 與海港氣氛，適合為跑者做最後應援。", transport: "Circular Quay、Martin Place 或 St James Station；僅可由 Art Gallery Rd 與 Mrs Macquarie's Rd 進入" },
+                { km: "10K", nameZh: "起跑氣氛應援區", nameEn: "Launchpad Party Zone", location: "Hickson Rd, Barangaroo Sydney", desc: "適合早起觀眾，有主持人、DJ 與大螢幕，可作為當日第一個觀賽點。", transport: "Barangaroo Metro 出站即到，或從 Wynyard Station 經 Wynyard Walk 前往" },
+                { km: "11.9K", nameZh: "岩石區搖滾應援站", nameEn: "The Rocks Party Zone", location: "George St & Alfred St, The Rocks Sydney", desc: "港灣大橋景觀配上搖滾樂隊，並設有架高觀賽平台。", transport: "Wynyard Station（George St 出口）或 Circular Quay Station" },
+                { km: "15.4K / 36.2K", nameZh: "彩虹派對應援區", nameEn: "Pride Party", location: "Taylor Square, Oxford St & Flinders St Darlinghurst", desc: "可看到跑者兩次，有 DJ、表演、看台與鮮明的彩虹派對氣氛。", transport: "Museum、Kings Cross 或 Central Station" },
+                { km: "29K / 34.8K", nameZh: "雪梨天鵝隊街區派對", nameEn: "Swans Block Party", location: "Driver Avenue, Moore Park NSW", alcohol: true, desc: "可看到跑者兩次，有 DJ、舞台、家庭活動與餐飲設施。", transport: "從市區搭輕軌至 Moore Park；Kingsford 方向服務預計 14:00 後才恢復" }
+            ]
+        };
+
         const itinerary = [
             {
                 date: "8/26 (三)",
@@ -168,8 +196,8 @@
                 activities: [
                     { time: "06:10", text: "抵達雪梨 (SYD)", type: "transport", query: "Sydney Airport", cost: "-" },
                     { time: "08:00", text: "飯店寄放行李", type: "stay", query: "25hours Hotel Sydney The Olympia", cost: "-" },
-                    { time: "10:00", text: "領號碼布 (Olympic Park)", type: "must", query: "Sydney Olympic Park", cost: "-" },
-                    { time: "12:00", text: "Expo 參觀", type: "leisure", query: "Sydney Marathon Expo", cost: "-" },
+                    { time: "10:00", text: "領號碼布（Sydney Showground）", type: "must", query: runningShowInfo.venue, cost: "-", link: runningShowInfo.website },
+                    { time: "12:00", text: "Running Show / Expo 參觀", type: "leisure", query: runningShowInfo.venue, cost: "-", link: runningShowInfo.website },
                     { time: "16:00", text: "歌劇院與港灣大橋拍照", type: "must", query: "Sydney Opera House", cost: "-" }
                 ]
             },
@@ -211,8 +239,8 @@
                     { label: "黑星甜點（Black Star Pastry）", query: "Black Star Pastry Sydney" }
                 ],
                 activities: [
-                    { time: "06:30", text: "前往起跑區集合", type: "transport", query: "Macquarie St Sydney", cost: "-" },
-                    { time: "07:15", text: "Mini Marathon 開跑 (5K)", type: "miniRun", query: "Macquarie St Sydney", cost: "80 AUD / 約 TWD 1,810" },
+                    { time: "06:15", text: "Parade Grounds 集合（Royal Botanic Garden）", type: "transport", query: "Parade Grounds, Royal Botanic Garden Sydney", cost: "-", link: miniMarathon.website },
+                    { time: "07:15", text: "Mini Marathon 開跑（5K／Macquarie St）", type: "miniRun", query: "Macquarie St Sydney", cost: "80 AUD / 約 TWD 1,810" },
                     { time: "08:30", text: "完賽 & 歌劇院拍照", type: "finish", query: "Sydney Opera House", cost: "-" },
                     { time: "10:30", text: "飯店休息 / 放鬆", type: "rest", query: "25hours Hotel Sydney The Olympia", cost: "-" },
                     { time: "13:30", text: "雪梨歌劇院導覽", type: "play", query: "Sydney Opera House", cost: "NT$1,064", link: "https://www.kkday.com/zh-tw/product/19683-sydney-opera-house-walking-tour-english-japanese-korea-with-opera-kitchen-meal?utm_source=chatgpt.com" },
@@ -231,9 +259,13 @@
                 mapImage: "https://static.wixstatic.com/media/cbc827_1a01b0a040d34e58b68c67b5428a297d~mv2.png/v1/fill/w_963,h_789,fp_0.50_0.31,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/2592-A%20SM_Maps_2025-STATIC_SM%5B3%5D.png",
                 desc: "Race Day! 在世界級賽道奔跑，於歌劇院完賽。",
                 hotel: hotelInfo,
+                spectator: spectatorInfo,
+                optionalPlaces: [
+                    { label: "North Sydney Olympic Pool（依完賽狀況）", query: "North Sydney Olympic Pool", website: "https://northsydneyolympicpool.com.au/" }
+                ],
                 activities: [
-                    { time: "06:00", text: "抵達起跑區", type: "transport", query: "Sydney", cost: "-" },
-                    { time: "07:00", text: "全馬鳴槍起跑", type: "run", query: "Sydney Harbour Bridge", cost: "已付" },
+                    { time: "05:00", text: "St Leonards Park 集合（依號碼布紅／橘／綠區報到）", type: "transport", query: marathonInfo.startVenue, cost: "實際時間依賽前通知", link: marathonInfo.website },
+                    { time: "06:30", text: "全馬大眾組起跑（Miller St, North Sydney）", type: "run", query: marathonInfo.startLine, cost: "已付", link: marathonInfo.website },
                     { time: "11:30", text: "歌劇院前完賽", type: "finish", query: "Sydney Opera House", cost: "成就達成" },
                     { time: "17:00", text: "雪梨港夕陽晚餐郵輪", type: "food", query: "Sydney Harbour sunset dinner cruise", cost: "NT$3,021", link: "https://www.kkday.com/zh-tw/product/121684-sydney-harbour-sunset-dinner-cruise?utm_source=chatgpt.com" }
                 ]
@@ -248,6 +280,7 @@
                 desc: "最後的海岸漫步，帶著完賽獎牌回家。",
                 hotel: { name: "晚間搭機返台", price: "-" },
                 optionalPlaces: [
+                    { label: "North Sydney Olympic Pool（恢復／拍照）", query: "North Sydney Olympic Pool", website: "https://northsydneyolympicpool.com.au/" },
                     { label: "Mountain Equipment 戶外用品店（Mountain Equipment）", query: "Mountain Equipment Sydney" },
                     { label: "捷安特雪梨（Giant Sydney）", query: "Giant Sydney" }
                 ],
@@ -277,13 +310,13 @@
                 name: "雪梨馬拉松挑戰方案",
                 items: [
                     { name: "全馬報名費", cost: 0, costStr: "已付", note: "TCS Sydney Marathon 2026", payment: "paid" },
-                    { name: "住宿 (4晚)", cost: 13694, note: "25hours Hotel (149.75 AUD * 4)", linkType: "hotel", payment: "prepaidZhuang" },
+                    { name: "住宿 (4晚)", cost: 13694, note: "25hours Hotel (149.75 AUD * 4)", linkType: "hotel", payment: "paid" },
                     { name: "Mini Marathon 報名費", cost: 1810, note: "80 AUD / 約 TWD 1,810", linkType: "mini", payment: "paid" },
-                    { name: "Taronga Zoo 塔龍加動物園", cost: 1176, note: "KKday", link: "https://www.kkday.com/zh-tw/product/7317-taronga-zoo-ticket-sydney-australia?utm_source=chatgpt.com", payment: "prepaidZhuang" },
-                    { name: "賞鯨郵輪", cost: 1983, note: "KKday", link: "https://www.kkday.com/zh-tw/product/142497-whale-watching-express-cruise-sydney-australia?utm_source=chatgpt.com", payment: "prepaidZhuang" },
-                    { name: "雪梨歌劇院導覽", cost: 1064, note: "KKday", link: "https://www.kkday.com/zh-tw/product/19683-sydney-opera-house-walking-tour-english-japanese-korea-with-opera-kitchen-meal?utm_source=chatgpt.com", payment: "prepaidZhuang" },
+                    { name: "Taronga Zoo 塔龍加動物園", cost: 1176, note: "KKday", link: "https://www.kkday.com/zh-tw/product/7317-taronga-zoo-ticket-sydney-australia?utm_source=chatgpt.com", payment: "paid" },
+                    { name: "賞鯨郵輪", cost: 1983, note: "KKday", link: "https://www.kkday.com/zh-tw/product/142497-whale-watching-express-cruise-sydney-australia?utm_source=chatgpt.com", payment: "paid" },
+                    { name: "雪梨歌劇院導覽", cost: 1064, note: "KKday", link: "https://www.kkday.com/zh-tw/product/19683-sydney-opera-house-walking-tour-english-japanese-korea-with-opera-kitchen-meal?utm_source=chatgpt.com", payment: "paid" },
                     { name: "Sydney Tower Eye 雪梨塔", cost: 655, note: "當地購買", link: "https://www.kkday.com/zh-tw/product/6104-sydney-tower-eye-ticket-new-south-wales?utm_source=chatgpt.com", payment: "unpaid" },
-                    { name: "雪梨港夕陽晚餐郵輪", cost: 3021, note: "KKday 17:00 場次", link: "https://www.kkday.com/zh-tw/product/121684-sydney-harbour-sunset-dinner-cruise?utm_source=chatgpt.com", payment: "prepaidZhuang" },
+                    { name: "雪梨港夕陽晚餐郵輪", cost: 3021, note: "KKday 17:00 場次", link: "https://www.kkday.com/zh-tw/product/121684-sydney-harbour-sunset-dinner-cruise?utm_source=chatgpt.com", payment: "paid" },
                     { name: "市區交通預估", cost: 2000, note: "地鐵、巴士與景點移動", payment: "estimate" },
                     { name: "基本餐飲預估", cost: 7000, note: "日常餐飲與賽前高碳水", payment: "estimate" }
                 ]
@@ -296,6 +329,84 @@
             { cat: "重要文件", items: ["護照 (效期6個月以上)", "澳洲 ETA 簽證", "馬拉松報名確認信", "Mini Marathon 報名確認信", "飯店預訂確認書"] },
             { cat: "賽事裝備", items: ["跑鞋 (建議穿習慣的)", "比賽跑衣/跑褲", "Mini Marathon 輕便跑步裝備", "能量膠 / 鹽錠", "防磨凡士林", "號碼布腰帶"] },
             { cat: "生活用品", items: ["八字型轉接頭", "行動電源", "輕便保暖外套 (清晨較冷)", "常用個人藥品"] }
+        ];
+
+        const shoppingList = [
+            {
+                id: "lucas-papaw",
+                name: "Lucas’ Papaw Ointment",
+                nameZh: "Lucas 木瓜霜",
+                category: "藥妝店",
+                note: "用途與凡士林類似，依實際需求購買。",
+                image: "https://lucaspapaw.com.au/cdn/shop/files/lp-edits-5395_77e81bad-a32a-44fd-a1ef-6e7da9941cb8.jpg?v=1692242798&width=3840",
+                link: "https://lucaspapaw.com.au/en-nz/products/lucas-papaw-cream-75g-jar"
+            },
+            {
+                id: "manuka-honey",
+                name: "Nature’s Way Manuka Honey",
+                nameZh: "澳洲 Manuka 蜂蜜",
+                category: "藥妝店",
+                note: "MGO 等級與容量建議現場比價。",
+                image: "https://naturesway.com.au/media/catalog/product/tonicimages/9314807052584/9916118335518.png",
+                link: "https://naturesway.com.au/nature-s-way-manuka-honey-300mgo-250g"
+            },
+            {
+                id: "swisse",
+                name: "Swisse Ultiboost",
+                nameZh: "Swisse 保健食品",
+                category: "藥妝店",
+                note: "貼文未確認特定配方；依需求、藥師建議與價格現場比較。",
+                image: "https://swisse.com.sg/cdn/shop/products/Swisse_Ultiboost_Magnesium_1000px_FS_720x720%402x.png?v=1681181803",
+                link: "https://swisse.com.au/"
+            },
+            {
+                id: "blackmores",
+                name: "Blackmores",
+                nameZh: "Blackmores 保健食品",
+                category: "藥妝店",
+                note: "貼文未確認特定款式；購買前檢查成分、劇量與禁忌。",
+                image: "https://images.contentstack.io/v3/assets/blt948bd74310fc0ad0/blt610df31c93b9476e/68bfbcea7936f446ca7d3422/9300807350072-1.webp",
+                link: "https://www.blackmores.com.au/"
+            },
+            {
+                id: "goat-milk-soap",
+                name: "Australian Goat Milk Soap",
+                nameZh: "澳洲山羊奶皂",
+                category: "藥妝店",
+                note: "品牌與香味現場挑選，敏感肌先看成分。",
+                image: "https://bettervaluepharmacy.com.au/cdn/shop/products/Goats-Milk-Soap-Single-front.jpg?v=1633293213",
+                link: "https://bettervaluepharmacy.com.au/products/australian-by-nature-goat-milk-soap-100g-99-natural-moq-9-piece-counter-unit"
+            },
+            {
+                id: "emu-oil",
+                name: "Australian Emu Oil",
+                nameZh: "澳洲鴯麓油",
+                category: "藥妝店",
+                note: "外用保濕或按摩用；品牌、純度與成分現場比較。",
+                image: "https://static.wixstatic.com/media/a2b934_9a12236282e342e8bb10c785359f0240~mv2.png/v1/fill/w_1464,h_1464,al_c,q_95,enc_avif,quality_auto/a2b934_9a12236282e342e8bb10c785359f0240~mv2.png"
+            },
+            {
+                id: "jojoba",
+                name: "Australian Jojoba Products",
+                nameZh: "澳洲荷荷芭油產品",
+                category: "藥妝店",
+                note: "建議選擇成分單純的荷荷芭油，品牌現場比較。"
+            },
+            {
+                id: "bath-salts",
+                name: "Australian Bath Salts",
+                nameZh: "澳洲沐浴鹽",
+                category: "藥妝店",
+                note: "留意重量與行李空間，依香味及折扣挑選。"
+            },
+            {
+                id: "la-roche-posay",
+                name: "La Roche-Posay",
+                nameZh: "理膚寶水護膚品",
+                category: "藥妝店",
+                note: "常有折扣，先對比台灣價格與自己常用規格。",
+                image: "https://www.laroche-posay.com.au/dw/image/v2/BFZM_PRD/on/demandware.static/-/Sites-lrp-master-catalog/default/dw1f921458/images/large/3337875797597-1.png"
+            }
         ];
 
         function updateCountdown() {
@@ -385,10 +496,64 @@
                                 <div class="text-xs text-gray-400 uppercase font-bold tracking-wider mb-2">可選地點</div>
                                 <div class="flex flex-wrap gap-2">
                                     ${day.optionalPlaces.map(place => `
-                                        <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.query)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">
-                                            <i class="fa-solid fa-location-dot text-orange-500"></i>${place.label}
-                                        </a>
+                                        <span class="inline-flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">
+                                            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.query)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1">
+                                                <i class="fa-solid fa-location-dot text-orange-500"></i>${place.label}
+                                            </a>
+                                            ${place.website ? `<a href="${place.website}" target="_blank" rel="noopener noreferrer" class="ml-1 text-blue-500" aria-label="${place.label}官方網站"><i class="fa-solid fa-globe"></i></a>` : ''}
+                                        </span>
                                     `).join('')}
+                                </div>
+                            </div>
+                            ` : ''}
+                            ${day.spectator ? `
+                            <div class="spectator-guide mt-5 pt-4 border-t border-gray-100">
+                                <div class="flex items-center justify-between gap-3 mb-3">
+                                    <div>
+                                        <div class="text-sm text-gray-700 font-bold">親友中文觀賽指南</div>
+                                        <div class="text-[10px] text-gray-400 mt-0.5">優先搭大眾運輸，並在出發前約定會合點</div>
+                                    </div>
+                                    <div class="flex flex-wrap justify-end gap-2">
+                                        <a href="${day.spectator.website}" target="_blank" rel="noopener noreferrer" class="rounded-full bg-blue-50 px-2 py-1 text-[10px] font-bold text-blue-600" aria-label="官方觀賽指南"><i class="fa-solid fa-globe mr-1"></i>官方指南</a>
+                                        <a href="${day.spectator.smartMap}" target="_blank" rel="noopener noreferrer" class="rounded-full bg-orange-50 px-2 py-1 text-[10px] font-bold text-orange-600" aria-label="Official Smart Map"><i class="fa-solid fa-map mr-1"></i>即時地圖</a>
+                                        <button type="button" onclick="toggleSpectatorZones(this)" class="spectator-toggle rounded-full bg-gray-100 px-2 py-1 text-[10px] font-bold text-gray-600">
+                                            <i class="fa-solid fa-chevron-down mr-1"></i><span>展開全部</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    ${day.spectator.zones.map((zone, zoneIndex) => `
+                                        <div class="spectator-zone ${zone.featured ? '' : 'spectator-extra-zone hidden'} rounded-xl border ${zone.featured ? 'border-orange-200 bg-orange-50/50' : 'border-gray-100 bg-gray-50'} p-3">
+                                            <div class="flex items-start justify-between gap-3">
+                                                <div class="min-w-0">
+                                                    <div class="text-xs font-bold text-gray-800">${zone.nameZh}</div>
+                                                    <div class="text-[10px] text-gray-400">${zone.nameEn}</div>
+                                                </div>
+                                                <span class="flex-none rounded-full bg-white px-2 py-1 text-[10px] font-bold text-orange-600 border border-orange-100">${zone.km}</span>
+                                            </div>
+                                            ${zone.tag ? `<div class="mt-2 inline-flex rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-bold text-orange-700"><i class="fa-solid fa-star mr-1 mt-0.5"></i>${zone.tag}</div>` : ''}
+                                            ${zone.alcohol ? `<div class="mt-2 ml-1 inline-flex rounded-full bg-purple-100 px-2 py-0.5 text-[10px] font-bold text-purple-700">★ 持牌飲酒區</div>` : ''}
+                                            <p class="mt-2 text-[11px] leading-relaxed text-gray-600">${zone.desc}</p>
+                                            <div class="mt-2 text-[10px] leading-relaxed text-gray-500"><i class="fa-solid fa-train-subway mr-1 text-blue-500"></i>${zone.transport}</div>
+                                            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(zone.location)}" target="_blank" rel="noopener noreferrer" class="mt-2 inline-flex items-center gap-1 text-[10px] font-bold text-orange-600">
+                                                <i class="fa-solid fa-location-arrow"></i>${zone.location}
+                                            </a>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <button type="button" onclick="toggleSpectatorZones(this)" class="spectator-toggle mt-3 w-full rounded-lg border border-gray-200 bg-white py-2 text-xs font-bold text-gray-600">
+                                    <i class="fa-solid fa-chevron-down mr-1"></i><span>查看全部 7 個應援區</span>
+                                </button>
+                                <div class="mt-3 rounded-xl bg-emerald-50 border border-emerald-100 p-3">
+                                    <div class="text-xs font-bold text-emerald-700"><i class="fa-solid fa-people-group mr-1"></i>完賽後會合</div>
+                                    <p class="mt-1 text-[10px] leading-relaxed text-emerald-700/80">終點線旁不適合停留。跑者完賽後需沿 Walk-Off 步行約 600 公尺，請在皇家植物園 Reunite Zone 會合。
+                                    </p>
+                                    <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(day.spectator.reuniteZone)}" target="_blank" rel="noopener noreferrer" class="mt-2 inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700">
+                                        <i class="fa-solid fa-location-arrow"></i>Royal Botanic Garden Reunite Zone
+                                    </a>
+                                </div>
+                                <div class="mt-3 rounded-lg border border-amber-100 bg-amber-50 px-3 py-2 text-[10px] leading-relaxed text-amber-700">
+                                    <i class="fa-solid fa-circle-info mr-1"></i>官方 App 頁面仍殘留 2025 文字；2026 跑者追蹤功能以賽事週官方公告為準。
                                 </div>
                             </div>
                             ` : ''}
@@ -401,6 +566,7 @@
 
         function renderChecklist() {
             const container = document.getElementById('app-container');
+            const purchasedItems = JSON.parse(localStorage.getItem('sydneyShoppingList') || '[]');
             let html = '<div class="space-y-6 pb-8 bg-white p-6 rounded-2xl shadow-sm animate-fade-in">';
             html += `<h2 class="text-xl font-bold text-gray-800 mb-4">跑旅準備清單</h2>`;
             checklist.forEach(cat => {
@@ -408,6 +574,47 @@
                         ${cat.items.map(item => `<li class="flex items-center gap-3 cursor-pointer" onclick="toggleCheck(this)"><div class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center text-white check-box"><i class="fa-solid fa-check text-xs"></i></div><span class="text-gray-700 text-sm check-text">${item}</span></li>`).join('')}
                     </ul></div>`;
             });
+            html += `
+                <div class="pt-2">
+                    <div class="flex items-end justify-between gap-3 border-b pb-2 mb-3">
+                        <div>
+                            <h3 class="text-sm font-bold text-orange-600 uppercase">購買清單</h3>
+                            <p class="mt-0.5 text-[10px] text-gray-400">建議店家：Chemist Warehouse Darlinghurst（離飯店步行約 10–15 分鐘）</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Chemist%20Warehouse%20Darlinghurst%20175%20Riley%20Street" target="_blank" rel="noopener noreferrer" class="flex-none text-orange-500" aria-label="Chemist Warehouse Darlinghurst 地圖">
+                            <i class="fa-solid fa-location-arrow"></i>
+                        </a>
+                    </div>
+                    <div class="space-y-3">
+                        ${shoppingList.map(item => {
+                            const purchased = purchasedItems.includes(item.id);
+                            return `
+                            <div class="shopping-item flex gap-3 rounded-xl border ${purchased ? 'border-emerald-100 bg-emerald-50/50' : 'border-gray-100 bg-gray-50'} p-3" data-shopping-id="${item.id}">
+                                <div class="flex-none h-16 w-16 overflow-hidden rounded-lg border border-gray-100 bg-white flex items-center justify-center">
+                                    ${item.image ? `<img src="${item.image}" alt="${item.nameZh}" class="h-full w-full object-contain p-1" loading="lazy" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden')">` : ''}
+                                    <i class="fa-solid fa-prescription-bottle-medical text-2xl text-orange-300 ${item.image ? 'hidden' : ''}"></i>
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <div class="flex items-start justify-between gap-2">
+                                        <div>
+                                            <div class="shopping-name text-sm font-bold ${purchased ? 'line-through text-gray-400' : 'text-gray-800'}">${item.nameZh}</div>
+                                            <div class="text-[10px] text-gray-400">${item.name}</div>
+                                        </div>
+                                        <button type="button" onclick="toggleShoppingItem(this)" class="shopping-check flex h-6 w-6 flex-none items-center justify-center rounded-full border-2 ${purchased ? 'border-emerald-500 bg-emerald-500 text-white' : 'border-gray-300 bg-white text-transparent'}" aria-label="${purchased ? '取消已購買' : '標記已購買'}">
+                                            <i class="fa-solid fa-check text-xs"></i>
+                                        </button>
+                                    </div>
+                                    <div class="mt-1 inline-flex rounded-full border border-purple-100 bg-purple-50 px-2 py-0.5 text-[10px] font-bold text-purple-600">${item.category}</div>
+                                    <p class="mt-1 text-[10px] leading-relaxed text-gray-500">${item.note}</p>
+                                    ${item.link ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="mt-1 inline-flex items-center gap-1 text-[10px] font-bold text-blue-500"><i class="fa-solid fa-globe"></i>參考商品</a>` : ''}
+                                </div>
+                            </div>`;
+                        }).join('')}
+                    </div>
+                    <div class="mt-3 rounded-lg border border-amber-100 bg-amber-50 p-3 text-[10px] leading-relaxed text-amber-700">
+                        <i class="fa-solid fa-circle-info mr-1"></i>保健食品的影片款式未完全確認，請依成分、用藥狀況與藥師建議挑選；縮圖僅供包裝辨識。
+                    </div>
+                </div>`;
             container.innerHTML = html + '</div>';
         }
 
@@ -538,13 +745,13 @@
                             `).join('')}
                         </div>
 
-                        <div class="bg-sky-50 text-sky-700 p-3 rounded-xl border border-sky-100 mb-3 flex justify-between items-center">
+                        ${prepaidZhuangTotal > 0 ? `<div class="bg-sky-50 text-sky-700 p-3 rounded-xl border border-sky-100 mb-3 flex justify-between items-center">
                             <div>
                                 <div class="text-[10px] uppercase tracking-widest font-bold">莊先付</div>
                                 <div class="text-xs text-sky-500">住宿與已代墊活動</div>
                             </div>
                             <div class="font-mono font-bold">TWD $${prepaidZhuangTotal.toLocaleString()}</div>
-                        </div>
+                        </div>` : ''}
 
                         <div class="bg-rose-50 text-rose-700 p-3 rounded-xl border border-rose-100 mb-3 flex justify-between items-center">
                             <div>
@@ -588,6 +795,22 @@
             content.classList.toggle('open');
         }
 
+        function toggleSpectatorZones(button) {
+            const section = button.closest('.spectator-guide');
+            const extraZones = section.querySelectorAll('.spectator-extra-zone');
+            const isExpanding = Array.from(extraZones).some(zone => zone.classList.contains('hidden'));
+            extraZones.forEach(zone => zone.classList.toggle('hidden', !isExpanding));
+            section.querySelectorAll('.spectator-toggle').forEach((toggle, index) => {
+                toggle.querySelector('span').textContent = isExpanding
+                    ? '收合其他應援區'
+                    : (index === 0 ? '展開全部' : '查看全部 7 個應援區');
+                toggle.querySelector('i').className = `fa-solid ${isExpanding ? 'fa-chevron-up' : 'fa-chevron-down'} mr-1`;
+            });
+            if (!isExpanding) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
         function toggleCheck(el) {
             const box = el.querySelector('.check-box');
             const text = el.querySelector('.check-text');
@@ -595,6 +818,33 @@
             box.classList.toggle('border-orange-500');
             text.classList.toggle('line-through');
             text.classList.toggle('text-gray-400');
+        }
+
+        function toggleShoppingItem(button) {
+            const card = button.closest('.shopping-item');
+            const itemId = card.dataset.shoppingId;
+            const purchasedItems = new Set(JSON.parse(localStorage.getItem('sydneyShoppingList') || '[]'));
+            const isPurchased = purchasedItems.has(itemId);
+
+            if (isPurchased) purchasedItems.delete(itemId);
+            else purchasedItems.add(itemId);
+
+            localStorage.setItem('sydneyShoppingList', JSON.stringify([...purchasedItems]));
+            card.classList.toggle('border-emerald-100', !isPurchased);
+            card.classList.toggle('bg-emerald-50/50', !isPurchased);
+            card.classList.toggle('border-gray-100', isPurchased);
+            card.classList.toggle('bg-gray-50', isPurchased);
+            button.classList.toggle('border-emerald-500', !isPurchased);
+            button.classList.toggle('bg-emerald-500', !isPurchased);
+            button.classList.toggle('text-white', !isPurchased);
+            button.classList.toggle('border-gray-300', isPurchased);
+            button.classList.toggle('bg-white', isPurchased);
+            button.classList.toggle('text-transparent', isPurchased);
+            button.setAttribute('aria-label', isPurchased ? '標記已購買' : '取消已購買');
+            const name = card.querySelector('.shopping-name');
+            name.classList.toggle('line-through', !isPurchased);
+            name.classList.toggle('text-gray-400', !isPurchased);
+            name.classList.toggle('text-gray-800', isPurchased);
         }
 
         renderItinerary();
